@@ -1,0 +1,8 @@
+obj
+42sh
+*.o
+*DS_Store
+.histo
+print_flags_histo.c
+42sh.dSYM
+.vscode

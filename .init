@@ -1,0 +1,1 @@
+/bin/test -f $HOME/.21sh && source $HOME/.21sh
