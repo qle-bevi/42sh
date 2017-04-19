@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 02:09:51 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 20:12:21 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:07:33 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 static int		heredoc(char *path)
 {

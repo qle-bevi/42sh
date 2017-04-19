@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 01:13:59 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/12/16 19:18:06 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/12 06:00:16 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_command_line.h"
+#include "shell.h"
 
 static t_cmd_line	*get_cmd_line(void)
 {

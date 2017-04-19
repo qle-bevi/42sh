@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 12:46:59 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/02/18 19:32:45 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/12 06:29:49 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 static t_cmd	*cmd_build_parse_error(t_cmd **cmdp, char *str)
 {
@@ -36,13 +37,13 @@ t_cmd			*cmd_build(char **strp, int with_then)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)shalloc(sizeof(t_cmd));
-	while (**strp && **strp != ';')
+	while (**strp && **strp != ';' && **strp != '&')
 	{
 		while (cmd_is_skip_char(**strp))
 			++*strp;
 		if (**strp < 0 || **strp > 127)
 			return (cmd_build_parse_error(&cmd, *strp));
-		if (!with_then && (cmd_is_operator(*strp) || **strp == ';'))
+		if (!with_then && (cmd_is_operator(*strp) || **strp == ';' || **strp == '&'))
 			break ;
 		if ((!cmd_is_arg(*strp) && !cmd->args)
 		|| (cmd_is_operator(*strp) && !cmd_build_add_operator(cmd, strp))
@@ -51,7 +52,9 @@ t_cmd			*cmd_build(char **strp, int with_then)
 		|| (cmd_is_arg(*strp) && !cmd_add_arg(cmd, strp, 1)))
 			return (cmd_build_parse_error(&cmd, *strp));
 	}
-	if (with_then && **strp == ';')
+	if (with_then && **strp == '&')
+		cmd->background = 1;
+	if (with_then && (**strp == ';' || **strp == '&'))
 		++*strp;
 	return ((!cmd->args || !*cmd->args) ? cmd_build_parse_error(&cmd, *strp)
 	: cmd);

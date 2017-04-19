@@ -6,7 +6,7 @@
 #    By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/29 23:23:47 by qle-bevi          #+#    #+#              #
-#    Updated: 2017/01/30 20:31:11 by qle-bevi         ###   ########.fr        #
+#    Updated: 2017/04/04 15:54:05 by qle-bevi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ ft_puttab.c ft_str_replace.c ft_rfreetab.c\
 
 INCL = -I ./includes/
 
-CC = gcc
+CC = clang
 
 FLAGS = -Wall -Werror -Wextra -O2 -g
 

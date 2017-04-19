@@ -6,17 +6,34 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:40:00 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/11/14 17:40:04 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/17 10:13:33 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static void stop_jobs(t_shell *sh)
+{
+	t_job	*job;
+	t_job	*next;
+
+	job = sh->jobs;
+	while (job)
+	{
+		next = job->next;
+		job_terminate(job, 130);
+		shell_remove_a_job(sh, job);
+		job = next;
+	}
+}
 
 void	exit_shell(char *msg, int code)
 {
 	t_shell *sh;
 
 	sh = get_shell();
+	if (sh->jobs)
+		stop_jobs(sh);
 	if (sh->prompt)
 		free(sh->prompt);
 	if (sh->env)

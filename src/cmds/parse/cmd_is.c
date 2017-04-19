@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:59:28 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/02/17 14:26:35 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:06:59 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 int	cmd_is_operator(char *str)
 {
@@ -37,6 +38,7 @@ int	cmd_is_arg(char *str)
 	return (*str
 	&& *str != ';'
 	&& *str != '|'
+	&& *str != '&'
 	&& !ft_isescaped(*str)
 	&& *str != ' '
 	&& !cmd_is_operator(str)

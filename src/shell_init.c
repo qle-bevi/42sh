@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:43:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/02/17 16:10:20 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:33:28 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			shell_init(t_shell *sh, char **env)
 		exit_shell("aliases hash creation error.", 1);
 	shell_update_bins(sh);
 	shell_lvl(sh->env, get_value("SHLVL"));
+	sh->pid = getpid();
 	sh->save_in = dup(0);
 	sh->save_out = dup(1);
 	sh->save_err = dup(2);

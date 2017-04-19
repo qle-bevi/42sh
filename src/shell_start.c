@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschafer <aschafer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/01/31 15:38:17 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/13 14:20:55 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@
 #include <unistd.h>
 #include "shell.h"
 
-void	interactive(t_shell *sh)
+static void user_loop(t_shell *sh)
 {
-	int			ret;
-	char		*line;
+	int		ret;
+	char	*line;
 
-	shell_signals();
-	sh->is_interactive = 1;
+	line = NULL;
 	while ((ret = get_line(shell_prompt(sh), &sh->line)) != -1)
 	{
 		line = sh->line;
 		if (!ret)
 		{
-			ft_putendl("");
+			ft_putchar('\n');
 			exit_shell(NULL, 0);
 		}
 		if (line && *line)
@@ -41,8 +40,20 @@ void	interactive(t_shell *sh)
 			shell_source_line(sh, line);
 		}
 		ft_putchar('\n');
+		shell_update_jobs(sh);
 		ft_memdel((void **)&sh->line);
 	}
+}
+
+static void	interactive(t_shell *sh)
+{
+	shell_signals();
+	while (tcgetpgrp(sh->save_in) != sh->pid)
+		kill (-sh->pid, SIGTTIN);
+	setpgid(sh->pid, sh->pid);
+	tcsetpgrp(sh->save_in, sh->pid);
+	sh->is_interactive = 1;
+	user_loop(sh);
 }
 
 void	shell_start(t_shell *sh, int ac, char **av)

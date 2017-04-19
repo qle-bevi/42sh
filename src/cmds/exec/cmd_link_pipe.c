@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 02:58:03 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/27 21:32:09 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:07:38 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 static t_redir	*make_redir(int from, int to)
 {

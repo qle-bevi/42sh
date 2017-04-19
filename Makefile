@@ -16,8 +16,12 @@ SRC = 	main.c \
 		print_error.c \
 		shell_source_fd.c \
 		shell_source_line.c \
+		shell_add_a_job.c \
+		shell_remove_a_job.c \
+		shell_update_jobs.c \
 		shell_update_bins.c \
 		set_term_mode.c \
+		set_current_pgid.c \
 		shell_prompt.c \
 		shell_signals.c \
 		do_exec.c \
@@ -36,6 +40,8 @@ SRC = 	main.c \
 		builtins/bi_cd_flags.c \
 		builtins/bi_cd_opt.c \
 		builtins/bi_source.c \
+		builtins/bi_jobs.c \
+		builtins/bi_fg.c \
 		builtins/bi_unset.c \
 		builtins/history/histo_list_to_file_ap.c \
 		builtins/history/histo_list_to_file_wo.c \
@@ -78,17 +84,29 @@ SRC = 	main.c \
 		get_command_line/cmd_line_extra.c \
 		cmds/cmd_free.c \
 		cmds/cmd_push_redir.c \
+		cmds/cmd_get_by_pid.c \
 		cmds/parse/cmd_build.c \
 		cmds/parse/cmd_is.c \
 		cmds/parse/cmd_add.c \
 		cmds/parse/cmd_parse_redir.c \
 		cmds/parse/cmd_extract_str.c \
 		cmds/exec/cmd_exec.c \
-		cmds/exec/cmd_handle_status.c \
-		cmds/exec/cmd_wait_group.c \
 		cmds/exec/cmd_get_redir_fd.c \
 		cmds/exec/cmd_set_fds.c \
 		cmds/exec/cmd_link_pipe.c \
+		cmds/exec/cmd_update.c \
+		cmds/exec/cmd_terminate.c \
+		jobs/job_get_by_pid.c \
+		jobs/job_update.c \
+		jobs/job_terminate.c \
+		jobs/job_next_cmd.c \
+		jobs/job_push_background.c \
+		jobs/job_push_foreground.c \
+		jobs/job_free.c \
+		jobs/job_wait.c \
+		jobs/job_notify.c \
+		jobs/job_format.c \
+		jobs/job_print.c \
 		utils/pdebug.c \
 		utils/get_winsize.c \
 		utils/read_key.c \
@@ -115,7 +133,8 @@ DIRS = 	$(OBJ_DIR) \
 		$(OBJ_DIR)/get_command_line \
 		$(OBJ_DIR)/cmds \
 		$(OBJ_DIR)/cmds/exec \
-		$(OBJ_DIR)/cmds/parse
+		$(OBJ_DIR)/cmds/parse \
+		$(OBJ_DIR)/jobs
 
 SRC_DIR = src
 
@@ -130,14 +149,14 @@ title:
 	@echo "Checking 21sh..."
 
 $(NAME): title $(DIRS) $(OBJS) $(CHECK_LIB)
-	@gcc $(FLAGS) $(OBJS) $(INCLUDES) $(LIB_FLAGS) -o $(NAME) -Ofast
+	@clang $(FLAGS) $(OBJS) $(INCLUDES) $(LIB_FLAGS) -o $(NAME) -Ofast
 	@echo "\n✅  21SH BUILT !"
 
 $(DIRS):
 	@mkdir $@
 
 $(OBJ_DIR)/%.o: %.c
-	@gcc $(FLAGS) $(INCLUDES) -c $< -o $@ -g3
+	@clang $(FLAGS) $(INCLUDES) -c $< -o $@ -g3
 	@echo "$(NAME) => \033[33;32m$@\033[33;0m"
 
 clean:

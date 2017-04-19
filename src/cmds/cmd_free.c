@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 17:50:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 16:31:30 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/17 11:59:36 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 static void	free_redirs(t_redir *redir)
 {
@@ -28,9 +29,8 @@ t_cmd		*cmd_free(t_cmd **cmd)
 {
 	ft_rfreetab((void ***)&(*cmd)->args);
 	free_redirs((*cmd)->redirs);
-	if ((*cmd)->children)
-		cmd_free(&(*cmd)->children);
-	if ((*cmd)->then)
-		cmd_free(&(*cmd)->then);
+	if ((*cmd)->children) cmd_free(&(*cmd)->children);
+	if ((*cmd)->then) cmd_free(&(*cmd)->then);
+	if ((*cmd)->pidstr) free((*cmd)->pidstr);
 	return ((t_cmd *)ft_memdel((void **)cmd));
 }

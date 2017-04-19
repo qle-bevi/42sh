@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:44:47 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/02/17 14:42:14 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/13 13:00:56 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "job.h"
 #include "cmd.h"
 
 static int		validate_fds(t_cmd *cmd)
@@ -34,6 +35,19 @@ static int		validate_fds(t_cmd *cmd)
 	return ((cmd->then) ? validate_fds(cmd->then) : 1);
 }
 
+static void		create_and_run_job(t_shell *sh, t_cmd *cmd)
+{
+	t_job *job;
+
+	job = shalloc(sizeof(t_job));
+	job->cmds = cmd;
+	shell_add_a_job(sh, job);
+	job_next_cmd(job);
+	(cmd->background) ? job_push_background(job) : job_push_foreground(job);
+	if (job->done)
+		shell_remove_a_job(sh, job);
+}
+
 void			shell_source_line(t_shell *sh, char *str)
 {
 	char	*cmd_str;
@@ -49,8 +63,9 @@ void			shell_source_line(t_shell *sh, char *str)
 		if (!(cmd = cmd_build(&cmd_str, 1)))
 			break ;
 		if (validate_fds(cmd))
-			sh->cmd_ret = cmd_exec(cmd);
-		cmd_free(&cmd);
+			create_and_run_job(sh, cmd);
+		if (*cmd_str == '&')
+			++cmd_str;
 	}
 	free(str);
 }

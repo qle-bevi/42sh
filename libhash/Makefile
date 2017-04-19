@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bdesbos <bdesbos@student.42.fr>            +#+  +:+       +#+         #
+#    By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/29 15:12:07 by bdesbos           #+#    #+#              #
-#    Updated: 2017/01/30 20:42:25 by qle-bevi         ###   ########.fr        #
+#    Updated: 2017/04/04 15:54:27 by qle-bevi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_NAME = h_add_elem.c h_create_hash.c h_get_elem_by_key.c \
 
 INCL = -I./includes/ -I../libft/includes
 
-CC = gcc
+CC = clang
 
 FLAGS = -Wall -Werror -Wextra -O2 -g
 

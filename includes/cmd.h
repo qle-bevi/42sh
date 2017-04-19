@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:01:28 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/28 14:38:59 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/17 11:59:18 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define CMD_H
 # define OP_AND 0
 # define OP_OR 1
-# include "shell.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_cmd	t_cmd;
 typedef struct s_redir	t_redir;
@@ -52,9 +53,11 @@ struct	s_cmd
 {
 	char	**args;
 	pid_t	pid;
+	char	*pidstr;
 	int		done;
 	int		ret;
 	int		to_close[2];
+	int		background;
 	t_ctype	ctype;
 	t_cmd	*children;
 	t_cmd	*then;
@@ -86,10 +89,10 @@ t_cmd	*cmd_free(t_cmd **cmd);
 **  EXEC
 */
 
-int		cmd_exec(t_cmd *cmd);
-void	cmd_exec_single(t_cmd *cmd, char **env, int must_wait);
-void	cmd_handle_status(t_cmd *cmd, int status);
-void	cmd_wait_group(t_cmd *cmd);
+void	cmd_exec(t_cmd *cmd);
+void	cmd_terminate(t_cmd *cmd, int ret);
+void	cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env);
+void	cmd_update(t_cmd *cmd, int status);
 void	cmd_set_fds(t_redir *redirs, int links);
 int		cmd_get_redir_fd(t_redir *redir);
 void	cmd_link_pipe(t_cmd *cmd, int p[2]);
@@ -101,5 +104,6 @@ void	cmd_link_pipe(t_cmd *cmd, int p[2]);
 t_cmd	*cmd_free(t_cmd **cmd);
 void	cmd_push_redir_end(t_redir **redirp, t_redir *new);
 void	cmd_push_redir_front(t_redir **redirp, t_redir *new);
+t_cmd	*cmd_get_by_pid(t_cmd *cmds, pid_t pid, int deep);
 
 #endif

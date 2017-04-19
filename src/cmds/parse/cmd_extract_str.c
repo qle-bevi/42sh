@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/02/17 14:13:28 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:06:53 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 #define MAX_SIZE 500
 #define TRIG_Q 0

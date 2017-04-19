@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:43:50 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 20:07:08 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/13 04:37:37 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@ static void	signal_sigint(int sig)
 void		shell_signals(void)
 {
 	signal(SIGINT, signal_sigint);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
 }

@@ -6,14 +6,14 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/02/18 18:32:05 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/13 13:14:27 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 # define STORE_SIZE 4
-# define NB_BUILTINS 14
+# define NB_BUILTINS 16
 # define DEFAULT_PATH "/bin:/usr/bin"
 # define HELP_FILES "./help/"
 
@@ -39,6 +39,7 @@
 # include "get_command_line.h"
 # include "libft.h"
 # include "libhash.h"
+# include "job.h"
 
 typedef struct s_shell			t_shell;
 typedef struct s_bi_histo		t_bi_histo;
@@ -69,6 +70,7 @@ struct					s_bi_histo
 
 struct					s_shell
 {
+	pid_t		pid;
 	char		*store[STORE_SIZE];
 	char		*line;
 	char		*histo_path;
@@ -77,6 +79,7 @@ struct					s_shell
 	t_hash		*bins;
 	t_hash		*aliases;
 	t_histo		*histo;
+	t_job		*jobs;
 	t_term_mode	term_mode;
 	char		*prompt;
 	int			aeof;
@@ -104,7 +107,7 @@ struct					s_builtin
 };
 
 /*
-** SHELL CORE
+** CORE
 */
 
 t_shell					*get_shell(void);
@@ -123,13 +126,16 @@ void					env_init(t_hash **hash_env, char **envp);
 void					shell_update_bins(t_shell *sh);
 void					env_check(t_hash *hash_env, char **store);
 void					shell_start(t_shell *sh, int ac, char **av);
-void					interactive(t_shell *sh);
 void					shell_source_fd(t_shell *sh, int fd);
 void					shell_source_line(t_shell *sh, char *line);
+void					shell_add_a_job(t_shell *sh, t_job *job);
+void					shell_remove_a_job(t_shell *sh, t_job *job);
+void					shell_update_jobs(t_shell *sh);
 void					*shalloc(size_t size);
 void					*shrealloc(void *old, size_t size);
 char					*shell_prompt(t_shell *sh);
 char					*stringtab_to_string(char **strings, int begin);
+void					set_current_pgid(pid_t pgid);
 void					shell_exec(t_shell *sh);
 void					shell_parse_vars(t_shell *sh, char **line);
 void					shell_signals(void);
@@ -155,6 +161,8 @@ int						bi_cd_change_dir(char *path, int print_path,
 											char *input);
 int						*bi_cd_get_flags(char **args);
 int						bi_source(t_shell *sh, char **args);
+int 					bi_jobs(t_shell *sh, char **args);
+int 					bi_fg(t_shell *sh, char **args);
 int						bi_export(t_shell *sh, char **args);
 int						bi_unset(t_shell *sh, char **args);
 
@@ -199,7 +207,7 @@ int						str_is_digit(char *str);
 char					*strtab_to_string_delim(char **strings, int begin,
 													char *delim);
 void					pdebug(char *str);
-void					copy_fd(int in, int out);
+int						copy_fd(int in, int out);
 char					*str_expand_vars(char *str);
 void					reset_signals();
 

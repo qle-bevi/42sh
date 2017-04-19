@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/28 14:35:17 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/13 10:02:30 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 static int		cmd_exec_builtin(t_cmd *cmd)
 {
@@ -55,39 +56,48 @@ static int		cmd_check_get_path(t_cmd *cmd)
 	return (1);
 }
 
-void			cmd_exec_single(t_cmd *cmd, char **env, int must_wait)
+void			cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env)
 {
-	int	status;
-
 	if (cmd_exec_builtin(cmd) || !cmd_check_get_path(cmd))
 		return ;
 	if ((cmd->pid = fork()) == -1)
 		exit_shell(ERR_FORK, 1);
-	if (!cmd->pid)
+	if (cmd->pid)
+		setpgid(cmd->pid, (pgid) ? pgid : cmd->pid);
+	else
 	{
-		signal(SIGSTOP, SIG_IGN);
 		restore_fds();
+		signal (SIGINT, SIG_DFL);
+		signal (SIGQUIT, SIG_DFL);
+		signal (SIGHUP, SIG_DFL);
+		signal (SIGTSTP, SIG_DFL);
+		signal (SIGTTIN, SIG_DFL);
+		signal (SIGTTOU, SIG_DFL);
+		signal (SIGCHLD, SIG_DFL);
 		cmd_set_fds(cmd->redirs, 0);
 		execve(cmd->args[0], cmd->args, env);
 		exit(1);
 	}
-	if (must_wait && waitpid(cmd->pid, &status, 0))
-		cmd_handle_status(cmd, status);
+	
 }
 
 static void		cmd_exec_group(t_cmd *cmd, char **env)
 {
 	int		to_close;
 	t_cmd	*current;
+	pid_t	pgid;
 	int		p[2];
 
+	pgid = 0;
 	current = cmd;
 	to_close = 0;
 	ft_bzero(p, sizeof(int) * 2);
 	while (current)
 	{
 		cmd_link_pipe(current, p);
-		cmd_exec_single(current, env, 0);
+		cmd_exec_single(current, pgid, env);
+		if (!pgid)
+			pgid = current->pid;
 		if (p[1])
 			close(p[1]);
 		if (to_close)
@@ -95,28 +105,15 @@ static void		cmd_exec_group(t_cmd *cmd, char **env)
 		to_close = p[0];
 		current = current->children;
 	}
-	cmd_wait_group(cmd);
 }
 
-int				cmd_exec(t_cmd *cmd)
+void				cmd_exec(t_cmd *cmd)
 {
 	char	**env;
-	t_cmd	*next;
-
+	
 	env = get_env();
-	(cmd->children) ? cmd_exec_group(cmd, env) : cmd_exec_single(cmd, env, 1);
-	if (cmd->ret == 130)
-		return (130);
-	if (cmd->then && ((!cmd->ret && cmd->ctype == AND) || (cmd->ret &&
-		cmd->ctype == OR)))
-		cmd->ret = cmd_exec(cmd->then);
-	else if (cmd->then)
-	{
-		next = cmd->then;
-		while (next && cmd->ctype == next->ctype)
-			next = next->then;
-		if (next && next->then && next->ctype != cmd->ctype)
-			return (cmd_exec(next->then));
-	}
-	return (cmd->ret);
+	if (cmd->children)
+		cmd_exec_group(cmd, env);
+	else
+		cmd_exec_single(cmd, 0, env);
 }

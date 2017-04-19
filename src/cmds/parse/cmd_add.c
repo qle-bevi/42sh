@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:10:51 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/31 14:17:07 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:08:29 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 static int	check_alias(t_cmd *cmd, char *extracted)
 {

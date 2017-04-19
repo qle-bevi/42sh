@@ -6,11 +6,12 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 20:14:43 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/28 14:55:05 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/10 17:07:05 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include "shell.h"
 
 #define NUM_RDEF 6
 
