@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cmd.h"
+#include <signal.h>
 
 void		cmd_terminate(t_cmd *cmd, int ret)
 {
