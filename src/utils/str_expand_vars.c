@@ -6,20 +6,22 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/02/17 15:56:18 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/26 18:26:28 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+# define TSQ	0
+# define TQ		1
+# define TBS	2
 
-static int		extract_key(char *str, char **dest, int nfirst)
+
+static int		extract_key(char *str, char **dest)
 {
 	int	i;
 
 	i = 0;
 	if (*str != '$')
-		return (0);
-	if (nfirst && *(str - 1) == '\\')
 		return (0);
 	++str;
 	while (str[i] && ft_isalnum(str[i]))
@@ -43,27 +45,46 @@ static void		get_append_value(char *key, char *buffer, int *i)
 	free(value);
 }
 
+static void 	extract_var(char **strp, char *buffer, int *i)
+{
+	int len;
+	char *key;
+
+	key = NULL;
+	if (!(len = extract_key(*strp, &key)))
+	{
+		++(*strp);
+		return ;
+	}
+	get_append_value(key, buffer, i);
+	*strp += len;
+	free(key);
+}
+
 char			*str_expand_vars(char *str)
 {
 	static char	buffer[10000] = { 0 };
+	static int	triggers[3] = { 0 };
 	int			i;
-	int			key_len;
-	char		*key;
 
 	ft_bzero(buffer, 10000);
 	i = 0;
-	key = NULL;
 	while (*str)
 	{
-		if ((key_len = extract_key(str, &key, i)))
+		if (*str == '\\')
 		{
-			get_append_value(key, buffer, &i);
-			ft_memdel((void **)&key);
-			str += key_len;
+			triggers[TBS] = 1;
+			++str;
 		}
-		else if (*str != '\\' || *(str + 1) != '$')
+		if (*str == '\'')
+			triggers[TSQ] = !triggers[TSQ];
+		else if (i && (!triggers[TSQ] || triggers[TBS])
+		&& !triggers[TBS] && *str == '$' )
+			extract_var(&str, buffer, &i);
+		else
 			buffer[i++] = *str;
 		++str;
+		triggers[TBS] = 0;
 	}
 	return (ft_strdup(buffer));
 }
