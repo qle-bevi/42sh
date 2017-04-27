@@ -6,12 +6,14 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:42:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/12/08 16:46:31 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 20:01:47 by aschafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #define Q 0
 #define S 1
 #define L 2
@@ -79,12 +81,19 @@ int			*bi_cd_get_flags(char **args)
 
 int			bi_cd_change_dir(char *path, int print_path, char *input)
 {
-	char	*tmp;
+	char		*tmp;
+	struct stat	buf;
 
 	tmp = NULL;
 	if (chdir(path) == -1)
 	{
-		print_error("cd: no such file or directory: ", input);
+		if (!lstat(path, &buf))
+		{
+			print_error((S_ISDIR(buf.st_mode) ? "cd : permission denied: " :
+						"cd: is not a directory: "), input);
+		}
+		else
+			print_error("cd: no such file or directory: ", input);
 		return (1);
 	}
 	if (print_path)
