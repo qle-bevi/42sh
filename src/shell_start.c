@@ -53,6 +53,7 @@ static void user_loop(t_shell *sh)
 
 static void	interactive(t_shell *sh)
 {
+	shell_signals();
 	while (tcgetpgrp(sh->save_in) != sh->pid)
 		kill (-sh->pid, SIGTTIN);
 	setpgid(sh->pid, sh->pid);
@@ -63,7 +64,6 @@ static void	interactive(t_shell *sh)
 
 void	shell_start(t_shell *sh, int ac, char **av)
 {
-	shell_signals();
 	if (ac != 1)
 		bi_source(sh, av + 1);
 	else if (!isatty(0))
