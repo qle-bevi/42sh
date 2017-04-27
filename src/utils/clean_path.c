@@ -64,8 +64,13 @@ static char	*join_path(char **array, int len)
 	return (path);
 }
 
-static char	**path_back(char **array, int i)
+static char	**path_back(char **array, int i, char *path)
 {
+	if (array[0] && !array[1] && path[0] == '/')
+	{
+		array[0] = "";
+		return (array);
+	}
 	while (i > 0)
 	{
 		if (!array[i] || !(ft_strcmp(array[i], "..")))
@@ -88,6 +93,8 @@ char		*clean_path(char *path)
 	i = 0;
 	len = 0;
 	array = ft_strsplit(path, '/');
+	if (array[0] && array[1] && !ft_strcmp(array[1], "..") && !array[2])
+		return (free_array(&array, 2, ft_strdup("/")));	
 	if (!path || !array[0])
 		return (free_array(&array, len, ft_strdup("/")));
 	while (array[len])
@@ -96,9 +103,8 @@ char		*clean_path(char *path)
 	{
 		if (!(ft_strcmp(array[i], "..")))
 		{
-			if (i > 0)
-				array = path_back(array, i);
-			ft_memdel((void **)&(array[i]));
+			if (i > 0 && (array = path_back(array, i, path)))
+				ft_memdel((void **)&(array[i]));
 		}
 		else if (!(ft_strcmp(array[i], ".")))
 			ft_memdel((void **)&(array[i]));

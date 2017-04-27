@@ -54,7 +54,7 @@ static void	get_path(char **path, char *pwd, char *input)
 	}
 	tmp = ft_strjoin(pwd, "/");
 	tmp = ft_strrejoin(tmp, tmp, input);
-	*path = clean_path(tmp);
+	*path = ft_strdup(tmp);
 	free(tmp);
 }
 
