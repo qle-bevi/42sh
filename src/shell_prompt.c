@@ -21,6 +21,15 @@ char	*shell_prompt(t_shell *sh)
 	if (sh->prompt)
 		free(sh->prompt);
 	buf = getcwd(buf, 1024);
+	if (!buf){
+		chdir(sh->store[HOMEDIR]);
+		buf = ft_strredup(buf, sh->store[HOMEDIR]);
+		sh->store[OLDPWD] = ft_strredup(sh->store[OLDPWD], "~");
+		sh->store[PWD] = ft_strredup(sh->store[PWD], "~");
+		h_set_or_create_elem(sh->env, "PWD", "~");
+		h_set_or_create_elem(sh->env, "OLDPWD", "~");
+		sh->env_update = 1;
+	}
 	buf = ft_str_replace(buf, sh->store[HOMEDIR], "~", 1);
 	prompt = ft_strdup("\e[35m");
 	prompt = ft_strrejoin(prompt, prompt, sh->store[LOGNAME]);

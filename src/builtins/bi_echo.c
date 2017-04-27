@@ -65,6 +65,7 @@ int			bi_echo(t_shell *sh, char **args)
 	char	*str;
 	int		*flags;
 
+	ft_puttab(args);
 	flags = get_flags(args);
 	str = stringtab_to_string(args, flags[NB_FLAGS]);
 	ft_putstr(str);
