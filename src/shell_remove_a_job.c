@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 09:37:32 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/10 09:37:32 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:18:19 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	shell_remove_a_job(t_shell *sh, t_job *job)
 			push_job(&sh->jobs, current);
 		else
 			job_free(job);
-			
 		current = next;
 	}
-		
 }

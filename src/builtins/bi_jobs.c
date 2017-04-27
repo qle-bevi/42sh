@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 08:21:08 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/13 08:21:08 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 18:40:35 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*get_flags(char ***args)
 	char		c[2];
 	int			i;
 	char		**current_arg;
-	
+
 	ft_bzero(flags, sizeof(char) * 6);
 	i = 0;
 	c[1] = 0;
@@ -27,7 +27,7 @@ static char	*get_flags(char ***args)
 	{
 		current_arg = *args + 1;
 		while (*current_arg)
-		{	
+		{
 			c[1] = **current_arg;
 			if (!ft_strchr(valids, c[1]))
 			{
@@ -105,7 +105,7 @@ int			bi_jobs(t_shell *sh, char **args)
 		ft_putchar('\n');
 		to_free = current_job;
 		current_job = current_job->next;
-		job_free(to_free);
+		free(current_job);
 		free(id);
 	}
 	return (0);

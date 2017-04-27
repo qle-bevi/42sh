@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:34:54 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/13 11:15:53 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 18:46:49 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_builtin	*get_builtins(void)
 		{"unset", bi_unset},
 		{"source", bi_source},
 		{"jobs", bi_jobs},
-		{"fg", bi_fg}
+		{"fg", bi_fg},
+		{"bg", bi_bg}
 	};
 
 	return ((t_builtin *)builtins);

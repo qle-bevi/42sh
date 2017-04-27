@@ -43,6 +43,7 @@ SRC = 	main.c \
 		builtins/bi_source.c \
 		builtins/bi_jobs.c \
 		builtins/bi_fg.c \
+		builtins/bi_bg.c \
 		builtins/bi_unset.c \
 		builtins/history/histo_list_to_file_ap.c \
 		builtins/history/histo_list_to_file_wo.c \

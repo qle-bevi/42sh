@@ -6,14 +6,14 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 09:06:15 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 19:05:09 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 # define STORE_SIZE 4
-# define NB_BUILTINS 16
+# define NB_BUILTINS 17
 # define DEFAULT_PATH "/bin:/usr/bin"
 # define HELP_FILES "./help/"
 
@@ -164,6 +164,7 @@ int						*bi_cd_get_flags(char **args);
 int						bi_source(t_shell *sh, char **args);
 int 					bi_jobs(t_shell *sh, char **args);
 int 					bi_fg(t_shell *sh, char **args);
+int 					bi_bg(t_shell *sh, char **args);
 int						bi_export(t_shell *sh, char **args);
 int						bi_unset(t_shell *sh, char **args);
 
