@@ -6,7 +6,7 @@
 #    By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/29 15:12:07 by bdesbos           #+#    #+#              #
-#    Updated: 2017/04/04 15:54:27 by qle-bevi         ###   ########.fr        #
+#    Updated: 2017/04/27 22:01:36 by aschafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ SRC_PATH = .
 OBJ_PATH = obj
 
 HEAD = includes/libhash.h ../libft/includes/libft.h
-
-CHECK_LIB = ../libft/libft.a
 
 SRC_NAME = h_add_elem.c h_create_hash.c h_get_elem_by_key.c \
 		   h_get_value_by_key.c h_hash_to_tab.c h_lst_new.c h_lst_push.c \
@@ -42,14 +40,13 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 all: title $(NAME)
 
 title:
-	@make -C ../libft/ all
 	@echo "Checking libhash..."
 
 $(NAME): $(OBJ)
 	@ar rcs $@ $^
 	@echo "\n✅  LIBHASH BUILT !\n"
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEAD) $(CHECK_LIB)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEAD)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(FLAGS) $(INCL) -o $@ -c $<
 	@echo "libhash => \033[33;32m$@\033[33;0m"
