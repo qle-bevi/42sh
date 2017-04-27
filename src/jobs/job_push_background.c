@@ -15,7 +15,9 @@
 
 void	job_push_background(t_job *job)
 {
-	//kill(-job->current_cmd->pid, SIGSTOP);
-	usleep(400000);
-	(void)job;
+	kill(-job->current_cmd->pid, SIGCONT);
+	job->stopped = 0;
+	job->notified = 0;
+	job->current_cmd->background = 1;
+	sleep(1);
 }

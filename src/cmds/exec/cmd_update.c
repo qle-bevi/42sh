@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 05:15:45 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/12 07:55:07 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 10:36:12 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	cmd_handle_signal(t_cmd *cmd, int sig)
 		return cmd_return(cmd, 130);
 	if (sig == SIGTERM)
 		return cmd_return(cmd, 1);
-	ft_putnbr(sig);
 }
 
 void	cmd_update(t_cmd *cmd, int status)

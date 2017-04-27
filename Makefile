@@ -18,7 +18,8 @@ SRC = 	main.c \
 		shell_source_line.c \
 		shell_add_a_job.c \
 		shell_remove_a_job.c \
-		shell_update_jobs.c \
+		shell_update_status.c \
+		shell_notificate.c \
 		shell_update_bins.c \
 		set_term_mode.c \
 		set_current_pgid.c \
@@ -96,18 +97,15 @@ SRC = 	main.c \
 		cmds/exec/cmd_link_pipe.c \
 		cmds/exec/cmd_update.c \
 		cmds/exec/cmd_terminate.c \
-		jobs/job_get_by_pid.c \
-		jobs/job_update.c \
 		jobs/job_terminate.c \
 		jobs/job_next_cmd.c \
 		jobs/job_push_background.c \
 		jobs/job_push_foreground.c \
 		jobs/job_free.c \
 		jobs/job_wait.c \
-		jobs/job_notify.c \
-		jobs/job_format.c \
-		jobs/job_print.c \
+		jobs/job_notif.c \
 		utils/pdebug.c \
+		utils/print_hooks.c \
 		utils/get_winsize.c \
 		utils/read_key.c \
 		utils/clean_path.c \

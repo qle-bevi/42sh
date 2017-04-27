@@ -18,6 +18,11 @@ int		bi_fg(t_shell *sh, char **args)
 	int		id;
 	t_job	*job;
 
+	if (!args[0])
+	{
+		print_error("fg: no such job", NULL);
+		return (1);
+	}
 	id = ft_atoi(args[0]);
 	job = sh->jobs;
 	while (job)
@@ -31,5 +36,6 @@ int		bi_fg(t_shell *sh, char **args)
 		}
 		job = job->next;
 	}
+	print_error("fg: no such job: ", args[0]);
 	return (1);
 }

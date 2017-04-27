@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:01:28 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/17 11:59:18 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 03:35:12 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_cmd	*cmd_free(t_cmd **cmd);
 **  EXEC
 */
 
-void	cmd_exec(t_cmd *cmd);
+void	cmd_exec(t_cmd *cmd, pid_t pgid);
 void	cmd_terminate(t_cmd *cmd, int ret);
 void	cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env);
 void	cmd_update(t_cmd *cmd, int status);

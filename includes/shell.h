@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/13 13:14:27 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 09:06:15 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void					shell_source_fd(t_shell *sh, int fd);
 void					shell_source_line(t_shell *sh, char *line);
 void					shell_add_a_job(t_shell *sh, t_job *job);
 void					shell_remove_a_job(t_shell *sh, t_job *job);
-void					shell_update_jobs(t_shell *sh);
+void					shell_update_status(t_shell *sh);
+void					shell_notificate(t_shell *sh);
 void					*shalloc(size_t size);
 void					*shrealloc(void *old, size_t size);
 char					*shell_prompt(t_shell *sh);
@@ -210,5 +211,6 @@ void					pdebug(char *str);
 int						copy_fd(int in, int out);
 char					*str_expand_vars(char *str);
 void					reset_signals();
+void					print_hooks(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/04/13 14:20:55 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 09:17:04 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "shell.h"
+
+static void check_jobs(t_shell *sh)
+{
+	shell_update_status(sh);
+	shell_notificate(sh);
+}
 
 static void user_loop(t_shell *sh)
 {
@@ -40,7 +46,7 @@ static void user_loop(t_shell *sh)
 			shell_source_line(sh, line);
 		}
 		ft_putchar('\n');
-		shell_update_jobs(sh);
+		check_jobs(sh);
 		ft_memdel((void **)&sh->line);
 	}
 }

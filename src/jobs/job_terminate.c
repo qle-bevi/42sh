@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -16,7 +17,6 @@
 void		job_terminate(t_job *job, int ret)
 {
 	set_current_pgid(0);
-	job_notify(job, "terminated", 1);
 	cmd_terminate(job->current_cmd, ret);
 	job->ret = ret;
 	job->done = 1;

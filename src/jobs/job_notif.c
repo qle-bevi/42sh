@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   job_format.c                                       :+:      :+:    :+:   */
+/*   job_notif.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/13 12:33:49 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/13 12:33:49 by qle-bevi         ###   ########.fr       */
+/*   Created: 2017/04/27 06:37:08 by qle-bevi          #+#    #+#             */
+/*   Updated: 2017/04/27 06:37:08 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job.h"
-#include "libft.h"
+#include "shell.h"
 
-void job_format(char *str)
+void	job_notif(t_job *job, char *status)
 {
-	static char buffer[100] = { 0 };
-	int len;
+	char *str;
 
-	ft_bzero(buffer, sizeof(char) * 100);
-	len = ft_strlen(str);
-	buffer[0] = '[';
-	ft_strcat(buffer + 1, str);
-	buffer[len + 1] = ']';
-	ft_putstr(buffer);
+	if (!(str = ft_itoa(job->id)))
+		exit_shell(ERR_MALLOC, 1);
+	print_hooks(str);
+	print_hooks(status);
+	ft_putchar('\n');
+	free(str);
 }

@@ -15,7 +15,9 @@
 static void		job_exec_cmd(t_job *job, t_cmd *cmd)
 {
 	job->started = 1;
-	cmd_exec((job->current_cmd = cmd));
+	job->notified = 0;
+	job->stopped = 0;
+	cmd_exec((job->current_cmd = cmd), 0);
 	if (job->current_cmd->done)
 		job_next_cmd(job);
 }
@@ -24,14 +26,18 @@ void		job_next_cmd(t_job *job)
 {
 	t_cmd *candidate;
 
-	candidate = job->current_cmd;
 	if (!job->started)
 		return (job_exec_cmd(job, job->cmds)); 
+	candidate = job->current_cmd;
 	while (candidate->then)
 	{
 		if ((candidate->ctype == OR && job->current_cmd->ret)
 		|| (candidate->ctype == AND && !job->current_cmd->ret))
+		{
+			job->stopped = 0;
+			job->notified = 0;
 			return (job_exec_cmd(job, candidate->then));
+		}
 		candidate = candidate->then;
 	}
 	job_terminate(job, job->current_cmd->ret);

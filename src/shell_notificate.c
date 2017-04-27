@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   job_print.c                                        :+:      :+:    :+:   */
+/*   shell_notificate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/13 12:35:38 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/13 12:35:38 by qle-bevi         ###   ########.fr       */
+/*   Created: 2017/04/27 05:31:23 by qle-bevi          #+#    #+#             */
+/*   Updated: 2017/04/27 05:31:23 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job.h"
-#include "libft.h"
+#include "shell.h"
 
-void	job_print(t_job *job)
+void	shell_notificate(t_shell *sh)
 {
-	job_notify(job, (job->stopped) ? "stopped" : "running...", 0);
-	job_format(*job->current_cmd->args);
-	ft_putchar('\n');
+	t_job *job;
+	t_job *next;
+
+	job = sh->jobs;
+	while (job)
+	{
+		next = job->next;
+		if (job->done)
+		{
+			job_notif(job, "terminated");
+			shell_remove_a_job(sh, job);
+		} else if (job->stopped && !job->notified)
+		{
+			job_notif(job, "stopped");
+			job->notified = 1;
+		}
+		job = next;
+	}
 }

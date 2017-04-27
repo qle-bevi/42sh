@@ -1,37 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_get_job_by_pid.c                             :+:      :+:    :+:   */
+/*   bi_bg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/05 21:03:20 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/05 21:03:20 by qle-bevi         ###   ########.fr       */
+/*   Created: 2017/04/23 02:46:57 by qle-bevi          #+#    #+#             */
+/*   Updated: 2017/04/23 02:46:57 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-     
-void	shell_update_jobs(t_shell *sh)
-{
-	pid_t	pid;
-	t_job 	*job;
-	int 	status;
+#include "job.h"
 
-	if (!sh->jobs)
-		return ;
-	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED )))
+int 	bi_bg(t_shell *sh, char **args)
+{
+	t_job	*job;
+	int		ret;
+
+	ret = 0;
+	if (!*args)
 	{
-		if (pid == -1)
-			break ;
-		if ((job = job_get_by_pid(sh->jobs, pid)))
-		{
-			job_update(job, pid, status);
-			if (job->done)
-			{
-				sh->cmd_ret = job->ret;
-				shell_remove_a_job(sh, job);
-			}	
-		}
+		print_error("bg: no such job !", NULL);
+		return (1);
 	}
+	while (*args)
+	{
+		job = sh->jobs;
+		while (job)
+		{
+			if (job->id == ft_atoi(*args))
+			{
+				job_push_background(job, 1);
+				break ;
+			}
+			job = job->next;
+			if (!job)
+			{
+				ret = 1;
+				print_error("bg: no such job: ", *args);
+			}
+		}
+		++args;
+	}
+	return (ret);
 }
