@@ -77,7 +77,10 @@ char			*str_expand_vars(char *str)
 			++str;
 		}
 		if (*str == '\'')
+		{
 			triggers[TSQ] = !triggers[TSQ];
+			buffer[i++] = *str;
+		}
 		else if (i && (!triggers[TSQ] || triggers[TBS])
 		&& !triggers[TBS] && *str == '$' )
 			extract_var(&str, buffer, &i);

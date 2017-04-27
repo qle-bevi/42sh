@@ -16,6 +16,7 @@ static void	signal_sigint(int sig)
 {
 	static t_shell *sh = NULL;
 
+	puts("mabite");
 	if (!sh)
 		sh = get_shell();
 	if (sh->line)
