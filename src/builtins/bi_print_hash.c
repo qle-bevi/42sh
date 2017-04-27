@@ -14,6 +14,12 @@
 
 int	bi_print_hash(t_shell *sh, char **args)
 {
+	if (!args[0])
+	{
+		ft_putendl("print need an option [bins, env]");
+		return (1);
+	}
+		
 	if (!ft_strcmp(args[0], "env"))
 		h_print(sh->env, VAL_OK | NUM_OK | LEN_OK);
 	else if (!ft_strcmp(args[0], "bins"))
