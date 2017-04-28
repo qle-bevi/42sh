@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:40:44 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/11/14 19:41:58 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 20:57:38 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			bi_echo(t_shell *sh, char **args)
 	char	*str;
 	int		*flags;
 
-	ft_puttab(args);
+	exit_shell(*args, 1);
 	flags = get_flags(args);
 	str = stringtab_to_string(args, flags[NB_FLAGS]);
 	ft_putstr(str);

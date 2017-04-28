@@ -6,7 +6,7 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/04/26 18:26:28 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 20:56:49 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,18 @@ char			*str_expand_vars(char *str)
 		if (*str == '\\')
 		{
 			triggers[TBS] = 1;
-			++str;
+			if (*(++str) == 'n')
+			{
+				buffer[i++] = '\n';
+				++str;
+				triggers[TBS] = 0;
+			}
 		}
 		if (*str == '\'')
+		{
 			triggers[TSQ] = !triggers[TSQ];
+			buffer[i++] = *str;
+		}
 		else if (i && (!triggers[TSQ] || triggers[TBS])
 		&& !triggers[TBS] && *str == '$' )
 			extract_var(&str, buffer, &i);
