@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:43:50 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 16:43:30 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:05:13 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	signal_sigint(int sig)
 {
 	static t_shell *sh = NULL;
 
-	puts("mabite");
 	if (!sh)
 		sh = get_shell();
 	if (sh->line)
