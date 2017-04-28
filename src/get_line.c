@@ -14,6 +14,13 @@
 
 typedef int			(*t_gl_func)(t_shell *sh, char *prompt, char **line);
 
+static void			sigsig(int sig)
+{
+	ft_putendl("");
+	ft_putstr(get_shell()->prompt);
+	(void)sig;
+}
+
 static int			with_termcaps(t_shell *sh, char *prompt, char **line)
 {
 	int ret;
@@ -28,6 +35,7 @@ static int			without_termcaps(t_shell *sh, char *prompt, char **line)
 {
 	(void)sh;
 	ft_putstr(prompt);
+	signal(SIGINT, sigsig);
 	return (get_next_line(0, line));
 }
 

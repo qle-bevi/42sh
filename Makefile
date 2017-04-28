@@ -144,10 +144,11 @@ OBJS = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 all: title $(NAME)
 
 title:
+	@make -C libft all
 	@make -C libhash all
 	@echo "Checking 21sh..."
 
-$(NAME): title $(DIRS) $(OBJS) $(CHECK_LIB)
+$(NAME): $(DIRS) $(OBJS) $(CHECK_LIB)
 	@clang $(FLAGS) $(OBJS) $(INCLUDES) $(LIB_FLAGS) -o $(NAME) -Ofast
 	@echo "\n✅  21SH BUILT !"
 
