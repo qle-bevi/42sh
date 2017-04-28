@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:41 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 08:05:36 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 16:53:53 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	add_bins_from_dir(char *dir, t_hash *bins)
 		return ;
 	while ((entry = readdir(dirp)))
 	{
+		if (entry->d_type == DT_DIR)
+			continue ;
 		path = build_full_path(dir, entry->d_name);
 		if (!access(path, F_OK | X_OK))
 			h_set_or_create_elem(bins, entry->d_name, path);
