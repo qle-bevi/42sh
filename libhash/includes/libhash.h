@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:29:26 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 20:36:36 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:18:44 by aschafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define VAL_OK 1
 # define NUM_OK 2
 # define LEN_OK 4
+# define HALL	7
 
 # include "libft.h"
 # include <stdio.h>
