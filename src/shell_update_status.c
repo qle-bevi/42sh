@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 04:27:32 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 04:27:32 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 19:57:48 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,36 @@
 
 static void update_jobs(t_job *current_job, pid_t pid, int status)
 {
+	t_cmd *cmd;
+
 	while (current_job)
 	{
-		if (current_job->current_cmd->pid == pid)
+		cmd = current_job->current_cmd;
+		while (cmd)
 		{
-			if (WIFSTOPPED(status))
-				current_job->stopped = 1;
-			cmd_update(current_job->current_cmd, status);
-			if (current_job->current_cmd->done)
+			if (cmd->pid == pid)
 			{
-				job_next_cmd(current_job);
+				if (cmd->done)
+					break ;
+				if (WIFSTOPPED(status))
+					current_job->stopped = 1;
+				cmd_update(cmd, status);
+				if (cmd->done && cmd->ret == 130)
+				{
+					job_terminate(current_job, 130);
+					return ;
+				}
+				if (cmd->done)
+				{
+					if (cmd->ret)
+						cmd_terminate(current_job->current_cmd, cmd->ret);
+					if (cmd->ret || !cmd->children)
+						job_next_cmd(current_job);
+				}
 				break ;
 			}
+			else
+				cmd = cmd->children;
 		}
 		current_job = current_job->next;
 	}

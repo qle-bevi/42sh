@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/26 17:47:29 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:29:32 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,50 @@
 #include "shell.h"
 
 #define MAX_SIZE 500
-#define TRIG_Q 0
-#define TRIG_DQ 1
+#define TSQ 0
+#define TDQ 1
+#define TBS 2
+
+static int should_stop(char c, char triggers[3])
+{
+	return (
+		(cmd_is_skip_char(c) || c == ';' || c == '|')
+		&& !triggers[TBS] && !triggers[TDQ] && !triggers[TSQ]
+	);
+}
 
 char	*cmd_extract_str(char **strp)
 {
 	static char	buffer[MAX_SIZE + 1];
-	char		triggers[2];
+	char		triggers[3];
 	int			i;
 
 	ft_bzero(buffer, sizeof(char) * (MAX_SIZE + 1));
-	ft_bzero(triggers, sizeof(char) * 2);
+	ft_bzero(triggers, sizeof(char) * 3);
 	i = 0;
 	while (**strp)
 	{
 		if (i == MAX_SIZE)
 			exit_shell("Argument is too big !", 1);
-		if (**strp == '\'' && !triggers[TRIG_DQ])
-			triggers[TRIG_Q] = !triggers[TRIG_Q];
-		else if (**strp == '\"' && !triggers[TRIG_Q])
-			triggers[TRIG_DQ] = !triggers[TRIG_DQ];
-		else if ((cmd_is_skip_char(**strp) || **strp == ';' || **strp == '|')
-		&& !triggers[TRIG_Q] && !triggers[TRIG_DQ])
+		if (**strp == '\\' && !triggers[TBS])
+		{
+			triggers[TBS] = 1;
+			++*strp;
+		}
+		if (**strp == '\'' && !triggers[TDQ] && !triggers[TBS])
+		{
+			triggers[TSQ] = !triggers[TSQ];
+		}
+		else if (**strp == '\"' && !triggers[TSQ] && !triggers[TBS])
+			triggers[TDQ] = !triggers[TDQ];
+		else if (should_stop(**strp, triggers))
 			break ;
 		else
+		{
 			buffer[i++] = **strp;
+		}
 		++*strp;
+		triggers[TBS] = 0;
 	}
 	return (ft_strdup(buffer));
 }

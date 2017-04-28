@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 08:21:08 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 19:34:19 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 20:33:50 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			bi_jobs(t_shell *sh, char **args)
 		ft_putchar('\n');
 		to_free = current_job;
 		current_job = current_job->next;
-		free(current_job);
+		free(to_free);
 		free(id);
 	}
 	return (0);

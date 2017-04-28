@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 09:28:44 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/10 09:28:44 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 20:06:54 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	job_push_foreground(t_job *job)
 	job->current_cmd->background = 0;
 	job_wait(job);
 	set_current_pgid(0);
+	ft_putendl("JOB DONE !");
 }
