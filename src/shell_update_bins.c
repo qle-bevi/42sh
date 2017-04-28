@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:41 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 08:05:36 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:14:24 by aschafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void		shell_update_bins(t_shell *sh)
 	char	**tabp;
 	int		i;
 
-	i = 0;
 	h_free(&sh->bins, 0);
 	if (!(path = get_value("PATH")))
 		return ;
 	if (!(tabp = ft_strsplit(path, ':')))
 		ft_errexit(1, "malloc error!");
-	while (tabp[i])
-		add_bins_from_dir(tabp[i++], sh->bins);
+	i = ft_tablen(tabp) - 1;
+	while (i > -1)
+		add_bins_from_dir(tabp[i--], sh->bins);
 	free(path);
 	ft_free_tab(&tabp);
 }

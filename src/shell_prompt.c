@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:43:37 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 00:20:48 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/27 21:20:18 by aschafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*shell_prompt(t_shell *sh)
 	buf = ft_strnew(1024);
 	if (sh->prompt)
 		free(sh->prompt);
-	buf = getcwd(buf, 1024);
-	if (!buf){
+	if (!getcwd(buf, 1024))
+	{
 		chdir(sh->store[HOMEDIR]);
 		buf = ft_strredup(buf, sh->store[HOMEDIR]);
 		sh->store[OLDPWD] = ft_strredup(sh->store[OLDPWD], "~");
