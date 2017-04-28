@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 19:05:09 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:57:27 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,9 @@ int						bi_cd_change_dir(char *path, int print_path,
 											char *input);
 int						*bi_cd_get_flags(char **args);
 int						bi_source(t_shell *sh, char **args);
-int 					bi_jobs(t_shell *sh, char **args);
-int 					bi_fg(t_shell *sh, char **args);
-int 					bi_bg(t_shell *sh, char **args);
+int						bi_jobs(t_shell *sh, char **args);
+int						bi_fg(t_shell *sh, char **args);
+int						bi_bg(t_shell *sh, char **args);
 int						bi_export(t_shell *sh, char **args);
 int						bi_unset(t_shell *sh, char **args);
 
@@ -206,6 +206,7 @@ int						bi_history_p(t_bi_histo *current, t_shell *sh);
 char					**str_doublesplit(char *str);
 char					*clean_path(char *path);
 int						str_is_digit(char *str);
+int						str_is_alnum(char *str);
 char					*strtab_to_string_delim(char **strings, int begin,
 													char *delim);
 void					pdebug(char *str);
