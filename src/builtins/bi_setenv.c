@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:36:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 00:15:55 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:43:15 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,19 @@ int			bi_setenv(t_shell *sh, char **args)
 	if (!args || !*args)
 		return (bi_env(sh, args));
 	size = ft_tablen(args);
-	err = (ft_strchr(args[0], '=')) ? 1 : 0;
+	err = (str_is_alnum(args[0])) ? 0 : 1;
 	if (size < 3 && !err)
 	{
-		if (str_is_digit(args[0]))
+		if (ft_isdigit(args[0][0]))
 		{
-			ft_putendl_fd("setenv: name can't be an integer", 2);
+			ft_putendl_fd("setenv: variable name must begin with a letter", 2);
 			return (1);
 		}
-		else
-			h_set_or_create_elem(sh->env, args[0], args[1]);
+		h_set_or_create_elem(sh->env, args[0], args[1]);
 	}
 	else
 	{
-		ft_putendl_fd((err) ? "setenv: no '=' allowed in name."
+		ft_putendl_fd((err) ? "setenv: only alphanum allowed in name."
 		: "setenv: usage: [name value]", 2);
 		return (1);
 	}

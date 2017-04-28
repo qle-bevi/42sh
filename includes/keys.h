@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 23:56:16 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/11/14 20:27:00 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:39:08 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define CTRL_C 3
 # define CTRL_D 4
 # define ENTER_KEY 10
-# define CTRL_PIPE 12
+# define CTRL_L 12
 # define CTRL_U 21
 # define BACKSPACE_KEY 127
 # define UP_KEY 183

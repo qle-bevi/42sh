@@ -115,7 +115,8 @@ SRC = 	main.c \
 		utils/get_next_line.c \
 		utils/copy_fd.c \
         utils/str_expand_vars.c \
-		utils/reset_signals.c
+		utils/reset_signals.c \
+		utils/str_is_alnum.c
 
 
 CHECK_LIB = libft/libft.a libhash/libhash.a

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/28 18:12:53 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 20:40:24 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ static int		cmd_check_get_path(t_cmd *cmd)
 			cmd->ret = 127;
 			return (0);
 		}
+	}
+	if (access(path, F_OK|X_OK) == -1)
+	{
+		shell_update_bins(get_shell());
+		path = h_get_value_by_key(get_shell()->bins, cmd->args[0]);
+		free(cmd->args[0]);
+		cmd->args[0] = path;
 	}
 	else
 	{
@@ -110,7 +117,12 @@ static void		cmd_exec_group(t_cmd *cmd, char **env)
 void				cmd_exec(t_cmd *cmd, pid_t pgid)
 {
 	static char	**env;
-	
+<<<<<<< HEAD
+
+=======
+
+	env = get_env();
+>>>>>>> 4a53c0a8737ad3e0b2541ea32d5dd8bda386996e
 	if (cmd->children)
 		cmd_exec_group(cmd, env);
 	else
