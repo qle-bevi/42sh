@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 01:32:00 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/11/14 19:25:08 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:39:04 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_cl_action	*get_actions(void)
 		{CTRL_LEFT_KEY, cmd_line_pword}, {CTRL_RIGHT_KEY, cmd_line_nword},
 		{BACKSPACE_KEY, cmd_line_erase}, {ENTER_KEY, cmd_line_end},
 		{CTRL_U, cmd_line_rm_chars}, {CTRL_D, cmd_line_interrupt},
-		{CTRL_PIPE, clear_term}
+		{CTRL_L, clear_term}
 	};
 
 	return ((t_cl_action *)actions);
