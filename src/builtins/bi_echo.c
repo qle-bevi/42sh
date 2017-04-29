@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:40:44 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 20:57:38 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 19:48:59 by aschafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_invalid_flags(char *arg)
 	int	i;
 
 	i = 1;
-	while (arg[i])
+	while (arg && arg[i])
 	{
 		if (arg[i] != 'n' && arg[i] != 'e' && arg[i] != 'E')
 			return (1);
@@ -65,7 +65,6 @@ int			bi_echo(t_shell *sh, char **args)
 	char	*str;
 	int		*flags;
 
-	exit_shell(*args, 1);
 	flags = get_flags(args);
 	str = stringtab_to_string(args, flags[NB_FLAGS]);
 	ft_putstr(str);
