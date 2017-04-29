@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/29 09:37:24 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 22:07:33 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int		cmd_exec_builtin(t_cmd *cmd)
 	{
 		cmd_set_fds(cmd->redirs, 0);
 		cmd->ret = get_builtins()[bi_index].run(get_shell(), cmd->args + 1);
-		cmd->done = 1;
+		if (!cmd->children)
+			cmd->done = 1;
 		restore_fds();
 		return (1);
 	}
@@ -104,7 +105,10 @@ static void		cmd_exec_group(t_cmd *cmd, char **env)
 		cmd_link_pipe(current, p);
 		cmd_exec_single(current, pgid, env);
 		if (!pgid)
+		{
 			pgid = current->pid;
+			cmd->pid = pgid;
+		}
 		if (p[1])
 			close(p[1]);
 		if (to_close)
@@ -123,4 +127,6 @@ void				cmd_exec(t_cmd *cmd, pid_t pgid)
 		cmd_exec_group(cmd, env);
 	else
 		cmd_exec_single(cmd, pgid, env);
+	dprintf(get_shell()->tout, "pgid: %ld\n", (long)cmd->pid);
+	exit_shell("POIL", 1);
 }

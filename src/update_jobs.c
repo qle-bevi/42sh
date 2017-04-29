@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 09:50:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/29 09:50:23 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 21:27:16 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 static void handle_status(t_job *job, t_cmd *cmd, int status)
 {
+	dprintf(get_shell()->tout, "updating status for cmd %s\n", job->current_cmd->args[0]);
 	if (WIFSTOPPED(status))
 		job->stopped = 1;
 	cmd_update(cmd, status);
@@ -23,10 +24,11 @@ static void handle_status(t_job *job, t_cmd *cmd, int status)
 		job_terminate(job, 130);
 	else if (cmd->done)
 	{
-		if (cmd->ret)
-			cmd_terminate(job->current_cmd, cmd->ret);
 		if (cmd->ret || !cmd->children)
+		{
+			cmd_terminate(job->current_cmd, cmd->ret);
 			job_next_cmd(job);
+		}
 	}
 }
 
@@ -39,15 +41,9 @@ void update_jobs(t_job *current_job, pid_t pid, int status)
 		cmd = current_job->current_cmd;
 		while (cmd)
 		{
-			if (cmd->pid == pid)
-			{
-				if (cmd->done)
-					break ;
+			if (cmd->pid == pid && !cmd->done)
 				handle_status(current_job, cmd, status);
-				return ;
-			}
-			else
-				cmd = cmd->children;
+			cmd = cmd->children;
 		}
 		current_job = current_job->next;
 	}
