@@ -6,14 +6,14 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 04:03:30 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/10 17:07:42 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 13:41:29 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
 #include "shell.h"
 
-static int	get_fd_for(t_redir *current, int from, int links)
+int			cmd_got_fd_for(t_redir *current, int from, int links)
 {
 	while (current)
 	{
@@ -38,7 +38,7 @@ void		cmd_set_fds(t_redir *redirs, int links)
 	i = -1;
 	while (++i < 3)
 	{
-		if ((fd = get_fd_for(redirs, i, links)) != -1)
+		if ((fd = cmd_got_fd_for(redirs, i, links)) != -1)
 		{
 			close(i);
 			if (fd != -3)

@@ -45,7 +45,7 @@ int 	bi_bg(t_shell *sh, char **args)
 		{
 			if (job->id == ft_atoi(*args))
 			{
-				job_push_background(job);
+				job_push_background(job, 1);
 				break ;
 			}
 			job = job->next;

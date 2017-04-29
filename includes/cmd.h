@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:01:28 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 03:35:12 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 13:39:45 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env);
 void	cmd_update(t_cmd *cmd, int status);
 void	cmd_set_fds(t_redir *redirs, int links);
 int		cmd_get_redir_fd(t_redir *redir);
+int		cmd_got_fd_for(t_redir *current, int from, int links);
 void	cmd_link_pipe(t_cmd *cmd, int p[2]);
 
 /*

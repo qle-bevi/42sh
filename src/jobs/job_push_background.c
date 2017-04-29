@@ -15,11 +15,11 @@
 #include <unistd.h>
 #include <signal.h>
 
-void	job_push_background(t_job *job)
+void	job_push_background(t_job *job, int cont)
 {
 	set_current_pgid(0);
-	kill(-job->current_cmd->pid, SIGCONT);
-	job->stopped = 0;
+	if (cont)
+		kill(-job->current_cmd->pid, SIGCONT);
 	job->notified = 0;
-	sleep(1);
+	job->current_cmd->background = 1;
 }

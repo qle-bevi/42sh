@@ -20,7 +20,7 @@ void	shell_update_status(t_shell *sh)
 
 	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED)))
 	{
-		if (pid == -1) break ;
+		if (pid == -1) return ;
 		update_jobs(sh->jobs, pid, status);
 	}
 }

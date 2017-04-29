@@ -19,7 +19,7 @@ struct s_job {
 };
 
 void	job_push_foreground(t_job *job);
-void	job_push_background(t_job *job);
+void	job_push_background(t_job *job, int cont);
 void	job_free(t_job *job);
 void	job_next_cmd(t_job *job);
 void	job_notif(t_job *job, char *status);

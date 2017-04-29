@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:44:47 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/28 18:28:39 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 15:29:56 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ static void		create_and_run_job(t_shell *sh, t_cmd *cmd)
 	job->cmds = cmd;
 	shell_add_a_job(sh, job);
 	job_next_cmd(job);
-	(cmd->background && sh->is_interactive) ? job_push_background(job) : job_push_foreground(job);
+	if (sh->is_interactive)
+	{
+		if (cmd->background)
+			job_push_background(job, 1);
+		else
+			job_push_foreground(job);
+	}
 	if (job->done)
 		shell_remove_a_job(sh, job);
 }
