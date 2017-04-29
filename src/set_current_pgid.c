@@ -18,5 +18,7 @@ void	set_current_pgid(pid_t pgid)
 
 	if (!sh)
 		sh = get_shell();
-	tcsetpgrp(sh->save_out, (pgid) ? pgid : sh->pid);
+	pgid = (pgid) ? pgid : sh->pid;
+	while (tcgetpgrp(sh->save_out) != pgid)
+		tcsetpgrp(sh->save_out, pgid);
 }

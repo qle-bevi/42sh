@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/04/29 15:05:30 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/29 17:03:13 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	interactive(t_shell *sh)
 	while (tcgetpgrp(sh->save_in) != sh->pid)
 		kill (-sh->pid, SIGTTIN);
 	setpgid(sh->pid, sh->pid);
-	tcsetpgrp(sh->save_in, sh->pid);
+	set_current_pgid(0);
 	sh->is_interactive = 1;
 	user_loop(sh);
 }
