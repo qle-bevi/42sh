@@ -26,6 +26,7 @@ SRC = 	main.c \
 		shell_prompt.c \
 		shell_signals.c \
 		do_exec.c \
+		update_jobs.c \
 		shalloc.c \
 		builtins/get_builtins.c \
 		builtins/builtin_index.c \

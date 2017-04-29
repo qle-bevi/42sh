@@ -21,6 +21,6 @@ void	job_push_foreground(t_job *job)
 	job->notified = 0;
 	job->current_cmd->background = 0;
 	job_wait(job);
+	sleep(0);
 	set_current_pgid(0);
-	ft_putendl("JOB DONE !");
 }

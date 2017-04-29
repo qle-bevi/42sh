@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/28 17:57:27 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/29 10:08:52 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void					set_current_pgid(pid_t pgid);
 void					shell_exec(t_shell *sh);
 void					shell_parse_vars(t_shell *sh, char **line);
 void					shell_signals(void);
+void					update_jobs(t_job *job, pid_t pid, int status);
 char					*str_get_var_key(char *str);
 
 /*
