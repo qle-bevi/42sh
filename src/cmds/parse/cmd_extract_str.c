@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:31:14 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:48:04 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*cmd_extract_str(char **strp)
 	{
 		if (i == MAX_SIZE)
 			exit_shell("Argument is too big !", 1);
-		if (**strp == '\\' && !triggers[TBS])
+		if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ])
 		{
 			triggers[TBS] = 1;
 			++*strp;

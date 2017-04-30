@@ -6,7 +6,7 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/04/30 18:44:11 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:48:25 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ char			*str_expand_vars(char *str)
 	i = 0;
 	while (*str)
 	{
+		if (*str == '\\' && !triggers[TBS] && *(str + 1) == '$')
+		{
+			triggers[TBS] = 1;
+			++str;
+		}
 		if (*str == '\'' && !triggers[TBS])
 		{
 			triggers[TSQ] = !triggers[TSQ];
