@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:48:04 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:57:54 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,20 @@ char		*cmd_extract_str(char **strp)
 	i = 0;
 	while (**strp)
 	{
-		if (i == MAX_SIZE)
-			exit_shell("Argument is too big !", 1);
+		(i == MAX_SIZE) ? exit_shell("Argument is too big !", 1) : 0;
 		if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ])
 		{
 			triggers[TBS] = 1;
 			++*strp;
 		}
 		if (**strp == '\'' && !triggers[TDQ] && !triggers[TBS])
-		{
 			triggers[TSQ] = !triggers[TSQ];
-		}
 		else if (**strp == '\"' && !triggers[TSQ] && !triggers[TBS])
 			triggers[TDQ] = !triggers[TDQ];
 		else if (should_stop(**strp, triggers))
 			break ;
 		else
-		{
 			buffer[i++] = **strp;
-		}
 		++*strp;
 		triggers[TBS] = 0;
 	}
