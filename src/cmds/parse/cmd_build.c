@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 12:46:59 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/28 18:09:28 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 15:05:03 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ t_cmd			*cmd_build(char **strp, int with_then)
 		|| (cmd_is_arg(*strp) && !cmd_add_arg(cmd, strp, 1)))
 			return (cmd_build_parse_error(&cmd, *strp));
 	}
-	if (with_then && **strp == '&')
-		cmd->background = 1;
-	if (with_then && (**strp == ';' || **strp == '&'))
+	if (with_then && (**strp == ';'))
 		++*strp;
 	return ((!cmd->args || !*cmd->args) ? cmd_build_parse_error(&cmd, *strp)
 	: cmd);

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/29 22:07:33 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 15:00:42 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,4 @@ void				cmd_exec(t_cmd *cmd, pid_t pgid)
 		cmd_exec_group(cmd, env);
 	else
 		cmd_exec_single(cmd, pgid, env);
-	dprintf(get_shell()->tout, "pgid: %ld\n", (long)cmd->pid);
-	exit_shell("POIL", 1);
 }

@@ -16,7 +16,6 @@
 
 static void handle_status(t_job *job, t_cmd *cmd, int status)
 {
-	dprintf(get_shell()->tout, "updating status for cmd %s\n", job->current_cmd->args[0]);
 	if (WIFSTOPPED(status))
 		job->stopped = 1;
 	cmd_update(cmd, status);

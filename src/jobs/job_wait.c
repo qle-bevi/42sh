@@ -21,11 +21,7 @@ void	job_wait(t_job *job)
 
 	while (!job->stopped && !job->done)
 	{
-		dprintf(get_shell()->tout, "waiting for pgid %ld\n", (long)job->current_cmd->pid);
 		pid = waitpid(-1, &status, WUNTRACED);
-		dprintf(get_shell()->tout, "got a pid: %ld\n", (long)pid);
-		if (pid <= 0)
-			perror("wait");
 		update_jobs(job, pid, status);
 	}
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "job.h"
+#include "shell.h"
 
 static void		job_exec_cmd(t_job *job, t_cmd *cmd)
 {

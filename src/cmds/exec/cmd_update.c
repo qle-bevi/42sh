@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 05:15:45 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/29 20:48:27 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 14:59:51 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	cmd_handle_signal(t_cmd *cmd, int sig)
 
 void	cmd_update(t_cmd *cmd, int status)
 {
-	dprintf(get_shell()->tout, "updating cmd %s \n", cmd->args[0]);
 	if (WIFEXITED(status))
 		return cmd_return(cmd, WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
