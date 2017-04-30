@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 21:31:12 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 22:39:42 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static int		cmd_exec_builtin(t_cmd *cmd)
 		get_shell()->cmd_ret = cmd->ret;
 		if (!cmd->children)
 			cmd->done = 1;
+		close(0);
+		close(1);
+		close(2);
 		restore_fds();
 		return (1);
 	}
@@ -122,11 +125,13 @@ static void		cmd_exec_group(t_cmd *cmd, char **env)
 
 void			cmd_exec(t_cmd *cmd, pid_t pgid)
 {
-	static char	**env;
+	static char		**env;
+	static t_shell	*sh = NULL;
 
+	sh = get_shell();
 	env = get_env();
 	if (cmd->children)
 		cmd_exec_group(cmd, env);
 	else
-		cmd_exec_single(cmd, pgid, env);
+		cmd_exec_single(cmd, (sh->is_interactive) ? pgid : sh->pid, env);
 }

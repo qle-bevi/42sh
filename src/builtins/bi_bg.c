@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_bg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdesbos <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bdesbos <bdesbos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 17:49:08 by bdesbos           #+#    #+#             */
-/*   Updated: 2017/04/30 19:22:33 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 22:16:48 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,28 @@ static int	get_last_id(t_job *jobs)
 	return (0);
 }
 
+static int	bg_jobs(t_job *job, int id)
+{
+	char	*id_str;
+
+	while (job)
+	{
+		if (job->id == id)
+		{
+			job_push_background(job, 1);
+			return (0);
+		}
+		job = job->next;
+	}
+	if (!(id_str = ft_itoa(id)))
+		exit_shell(ERR_MALLOC, 1);
+	print_error("bg: no such job: ", id_str);
+	free(id_str);
+	return (1);
+}
+
 int			bi_bg(t_shell *sh, char **args)
 {
-	t_job	*job;
 	int		ret;
 	int		id;
 
@@ -41,24 +60,5 @@ int			bi_bg(t_shell *sh, char **args)
 	}
 	else
 		id = ft_atoi(*args);
-	while (*args)
-	{
-		job = sh->jobs;
-		while (job)
-		{
-			if (job->id == ft_atoi(*args))
-			{
-				job_push_background(job, 1);
-				break ;
-			}
-			job = job->next;
-			if (!job)
-			{
-				ret = 1;
-				print_error("bg: no such job: ", *args);
-			}
-		}
-		++args;
-	}
-	return (ret);
+	return (bg_jobs(sh->jobs, id));
 }
