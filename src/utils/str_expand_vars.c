@@ -6,15 +6,15 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/04/30 19:01:18 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 21:37:53 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-# define TSQ	0
-# define TDQ		1
-# define TBS	2
 
+# define TSQ	0
+# define TDQ	1
+# define TBS	2
 
 static int		extract_key(char *str, char **dest)
 {
@@ -24,8 +24,13 @@ static int		extract_key(char *str, char **dest)
 	if (*str != '$')
 		return (0);
 	++str;
-	while (str[i] && ft_isalnum(str[i]))
-		++i;
+	if (*str == '?')
+	{
+		i = 1;
+	}
+	else
+		while (str[i] && ft_isalnum(str[i]))
+			++i;
 	if (!i)
 		return (0);
 	if (!(*dest = ft_strnew(i)))
@@ -38,17 +43,22 @@ static void		get_append_value(char *key, char *buffer, int *i)
 {
 	char *value;
 
-	if (!(value = get_value(key)))
-		return ;
+	if (!ft_strcmp(key, "?"))
+	{
+		if (!(value = ft_itoa(get_shell()->cmd_ret)))
+			exit_shell(ERR_MALLOC, 1);
+	}
+	else if (!(value = get_value(key)))
+			return ;
 	ft_strcat(buffer + *i, value);
 	*i += (int)ft_strlen(value);
 	free(value);
 }
 
-static void 	extract_var(char **strp, char *buffer, int *i)
+static void		extract_var(char **strp, char *buffer, int *i)
 {
-	int len;
-	char *key;
+	int		len;
+	char	*key;
 
 	key = NULL;
 	if (!(len = extract_key(*strp, &key)))
@@ -91,7 +101,7 @@ char			*str_expand_vars(char *str)
 			buffer[i++] = *str;
 		}
 		else if (i && (!triggers[TSQ] || triggers[TBS])
-		&& !triggers[TBS] && *str == '$' )
+				&& !triggers[TBS] && *str == '$')
 			extract_var(&str, buffer, &i);
 		else
 			buffer[i++] = *str;

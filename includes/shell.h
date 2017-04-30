@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/29 10:08:52 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 21:31:00 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 ** ERRORS MESSAGES
 */
 
-# define ERR_ACC_EXISTS "file does not exists: "
-# define ERR_ACC_READ	"not allowed to read: "
-# define ERR_ACC_WRITE	"not allowed to write: "
-# define ERR_ACC_EXEC	"not allowed to execute: "
-# define ERR_PARSE		"parse error near -> "
+# define ERR_ACC_EXISTS "File does not exists: "
+# define ERR_ACC_READ	"Not allowed to read: "
+# define ERR_ACC_WRITE	"Not allowed to write: "
+# define ERR_ACC_EXEC	"Not allowed to execute: "
+# define ERR_PARSE		"Parse error near -> "
 # define ERR_MALLOC		"FATAL malloc error."
 # define ERR_READ		"FATAL read error."
 # define ERR_FORK		"FATAL fork error."

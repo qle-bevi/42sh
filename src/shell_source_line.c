@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:44:47 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:41:05 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 19:31:59 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ void			shell_source_line(t_shell *sh, char *str)
 	char	*cmd_str;
 	t_cmd	*cmd;
 
-	ft_putendl(str);
 	if (!(str = str_expand_vars(str)))
 		exit_shell(ERR_MALLOC, 1);
-	ft_putendl(str);
 	cmd_str = str;
 	if (*cmd_str == ';')
 		++cmd_str;

@@ -6,13 +6,13 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:40:00 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/17 10:13:33 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 20:13:25 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void stop_jobs(t_shell *sh)
+static void	stop_jobs(t_shell *sh)
 {
 	t_job	*job;
 	t_job	*next;
@@ -27,7 +27,15 @@ static void stop_jobs(t_shell *sh)
 	}
 }
 
-void	exit_shell(char *msg, int code)
+static void free_store(char *store[STORE_SIZE])
+{
+	free(store[HOMEDIR]);
+	free(store[PWD]);
+	free(store[OLDPWD]);
+	free(store[LOGNAME]);
+}
+
+void		exit_shell(char *msg, int code)
 {
 	t_shell *sh;
 
@@ -42,6 +50,9 @@ void	exit_shell(char *msg, int code)
 		h_free(&sh->vars, true);
 	if (sh->bins)
 		h_free(&sh->bins, true);
+	if (sh->aliases)
+		h_free(&sh->aliases, true);
+	free_store(sh->store);
 	set_term_mode(TM_NORMAL);
 	histo_list_to_file_wo(sh->histo_path, sh->histo);
 	free(sh->histo_path);

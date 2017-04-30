@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:43:50 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 14:56:51 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:39:16 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,4 @@ void		shell_signals(void)
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
-	//signal(SIGCHLD, SIG_IGN);
 }

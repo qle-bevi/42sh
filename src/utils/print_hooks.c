@@ -6,13 +6,13 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 06:38:58 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 06:38:58 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:40:40 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void print_hooks(char *text)
+void	print_hooks(char *text)
 {
 	ft_putchar('[');
 	ft_putstr(text);

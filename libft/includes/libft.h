@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/29 23:17:45 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/27 18:09:07 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 21:12:07 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char			**ft_strsplitif(char const *s, BOOL (*f)(char));
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strrejoin(char *orig, char *s1, char *s2);
 char			*ft_jointab(char **array);
+char			*ft_jointab_sep(char **array, char *sep);
 char			*ft_strtrim(const char *s);
 char			*ft_str_replace(char *s1, char *pattern, char *s2, int free_s1);
 /*

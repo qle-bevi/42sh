@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 05:31:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/29 20:46:34 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:37:54 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	shell_notificate(t_shell *sh)
 		{
 			job_notif(job, "terminated");
 			shell_remove_a_job(sh, job);
-		} else if (job->stopped && !job->notified)
+		}
+		else if (job->stopped && !job->notified)
 		{
 			job_notif(job, "stopped");
 			job->notified = 1;

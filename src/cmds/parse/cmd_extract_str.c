@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:35:19 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 19:29:50 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@
 #define TDQ 1
 #define TBS 2
 
-static int should_stop(char c, char triggers[3])
+static int	should_stop(char c, char triggers[3])
 {
-	return (
-		(cmd_is_skip_char(c) || c == ';' || c == '|')
-		&& !triggers[TBS] && !triggers[TDQ] && !triggers[TSQ]
-	);
+	return ((cmd_is_skip_char(c) || c == ';' || c == '|') &&
+			!triggers[TBS] && !triggers[TDQ] && !triggers[TSQ]);
 }
 
-char	*cmd_extract_str(char **strp)
+char		*cmd_extract_str(char **strp)
 {
 	static char	buffer[MAX_SIZE + 1];
 	char		triggers[3];
@@ -46,17 +44,13 @@ char	*cmd_extract_str(char **strp)
 			++*strp;
 		}
 		if (**strp == '\'' && !triggers[TDQ] && !triggers[TBS])
-		{
 			triggers[TSQ] = !triggers[TSQ];
-		}
 		else if (**strp == '\"' && !triggers[TSQ] && !triggers[TBS])
 			triggers[TDQ] = !triggers[TDQ];
 		else if (should_stop(**strp, triggers))
 			break ;
 		else
-		{
 			buffer[i++] = **strp;
-		}
 		++*strp;
 		triggers[TBS] = 0;
 	}

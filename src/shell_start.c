@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/04/29 17:03:13 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:40:08 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 #include <unistd.h>
 #include "shell.h"
 
-static void check_jobs(t_shell *sh)
+static void	check_jobs(t_shell *sh)
 {
 	shell_update_status(sh);
 	shell_notificate(sh);
 }
 
-static void user_loop(t_shell *sh)
+static void	user_loop(t_shell *sh)
 {
 	int		ret;
 	char	*line;
@@ -55,14 +55,14 @@ static void	interactive(t_shell *sh)
 {
 	shell_signals();
 	while (tcgetpgrp(sh->save_in) != sh->pid)
-		kill (-sh->pid, SIGTTIN);
+		kill(-sh->pid, SIGTTIN);
 	setpgid(sh->pid, sh->pid);
 	set_current_pgid(0);
 	sh->is_interactive = 1;
 	user_loop(sh);
 }
 
-void	shell_start(t_shell *sh, int ac, char **av)
+void		shell_start(t_shell *sh, int ac, char **av)
 {
 	if (ac != 1)
 		bi_source(sh, av + 1);

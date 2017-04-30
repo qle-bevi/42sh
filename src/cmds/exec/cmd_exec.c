@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 15:00:42 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 21:31:12 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int		cmd_exec_builtin(t_cmd *cmd)
 	{
 		cmd_set_fds(cmd->redirs, 0);
 		cmd->ret = get_builtins()[bi_index].run(get_shell(), cmd->args + 1);
+		get_shell()->cmd_ret = cmd->ret;
 		if (!cmd->children)
 			cmd->done = 1;
 		restore_fds();
@@ -40,10 +41,11 @@ static int		cmd_check_get_path(t_cmd *cmd)
 			print_error("Command not found: ", cmd->args[0]);
 			cmd->done = 1;
 			cmd->ret = 127;
+			get_shell()->cmd_ret = cmd->ret;
 			return (0);
 		}
 	}
-	if (access(path, F_OK|X_OK) == -1)
+	else if (access(path, F_OK | X_OK) == -1)
 	{
 		shell_update_bins(get_shell());
 		path = h_get_value_by_key(get_shell()->bins, cmd->args[0]);
@@ -59,6 +61,7 @@ static int		cmd_check_get_path(t_cmd *cmd)
 	{
 		cmd->done = 1;
 		cmd->ret = 126;
+		get_shell()->cmd_ret = cmd->ret;
 		return (0);
 	}
 	return (1);
@@ -75,18 +78,17 @@ void			cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env)
 	else
 	{
 		restore_fds();
-		signal (SIGINT, SIG_DFL);
-		signal (SIGQUIT, SIG_DFL);
-		signal (SIGHUP, SIG_DFL);
-		signal (SIGTSTP, SIG_DFL);
-		signal (SIGTTIN, SIG_DFL);
-		signal (SIGTTOU, SIG_DFL);
-		signal (SIGCHLD, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGHUP, SIG_DFL);
+		signal(SIGTSTP, SIG_DFL);
+		signal(SIGTTIN, SIG_DFL);
+		signal(SIGTTOU, SIG_DFL);
+		signal(SIGCHLD, SIG_DFL);
 		cmd_set_fds(cmd->redirs, 0);
 		execve(cmd->args[0], cmd->args, env);
 		exit(1);
 	}
-
 }
 
 static void		cmd_exec_group(t_cmd *cmd, char **env)
@@ -118,7 +120,7 @@ static void		cmd_exec_group(t_cmd *cmd, char **env)
 	}
 }
 
-void				cmd_exec(t_cmd *cmd, pid_t pgid)
+void			cmd_exec(t_cmd *cmd, pid_t pgid)
 {
 	static char	**env;
 
