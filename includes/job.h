@@ -1,11 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   job.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bdesbos <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/30 17:40:04 by bdesbos           #+#    #+#             */
+/*   Updated: 2017/04/30 17:40:14 by bdesbos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef JOB_H
 # define JOB_H
 # include "cmd.h"
 # include <unistd.h>
 
-typedef struct s_job t_job;
+typedef struct s_job	t_job;
 
-struct s_job {
+struct	s_job
+{
 	int		id;
 	char	*title;
 	t_cmd	*cmds;
