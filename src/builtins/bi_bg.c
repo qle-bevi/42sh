@@ -6,7 +6,7 @@
 /*   By: bdesbos <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 17:49:08 by bdesbos           #+#    #+#             */
-/*   Updated: 2017/04/30 18:52:57 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 19:22:33 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ int			bi_bg(t_shell *sh, char **args)
 	int		id;
 
 	ret = 0;
-	if ((!*args) && (!(id = get_last_id(sh->jobs))))
+	if (!*args)
 	{
-		print_error("fg: no such job", NULL);
-		return (1);
+		if (!(id = get_last_id(sh->jobs)))
+		{
+			print_error("fg: no such job", NULL);
+			return (1);
+		}
 	}
 	else
 		id = ft_atoi(*args);
