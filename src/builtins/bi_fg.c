@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 11:09:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 19:27:12 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 23:11:55 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@ static int	get_last_id(t_job *jobs)
 		jobs = jobs->next;
 	}
 	return (0);
+}
+
+static int	fg_job(t_job *job, int id)
+{
+	char	*id_str;
+
+	while (job)
+	{
+		if (job->id == id)
+		{
+			job_push_foreground(job);
+			return (0);
+		}
+		job = job->next;
+	}
+	if (!(id_str = ft_itoa(id)))
+		exit_shell(ERR_MALLOC, 1);
+	print_error("fg: no such job: ", id_str);
+	free(id_str);
+	return (1);
 }
 
 int			bi_fg(t_shell *sh, char **args)
@@ -40,17 +60,5 @@ int			bi_fg(t_shell *sh, char **args)
 	else
 		id = ft_atoi(args[0]);
 	job = sh->jobs;
-	while (job)
-	{
-		if (job->id == id)
-		{
-			job_push_foreground(job);
-			if (job->done)
-				shell_remove_a_job(sh, job);
-			return (0);
-		}
-		job = job->next;
-	}
-	print_error("fg: no such job: ", args[0]);
-	return (1);
+	return (fg_job(sh->jobs, id));
 }

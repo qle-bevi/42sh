@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 19:29:50 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 23:09:19 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,27 @@ static int	should_stop(char c, char triggers[3])
 			!triggers[TBS] && !triggers[TDQ] && !triggers[TSQ]);
 }
 
+static int	handle_char(char **strp, char triggers[3], char *buffer, int i)
+{
+	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ]
+	&& (!triggers[TDQ] || *(*strp + 1) == '$'))
+	{
+		triggers[TBS] = 1;
+		++*strp;
+	}
+	if (**strp == '\'' && !triggers[TDQ] && !triggers[TBS])
+		triggers[TSQ] = !triggers[TSQ];
+	else if (**strp == '\"' && !triggers[TSQ] && !triggers[TBS])
+		triggers[TDQ] = !triggers[TDQ];
+	else if (should_stop(**strp, triggers))
+		return (1);
+	else
+		buffer[i] = **strp;
+	++*strp;
+	triggers[TBS] = 0;
+	return (0);
+}
+
 char		*cmd_extract_str(char **strp)
 {
 	static char	buffer[MAX_SIZE + 1];
@@ -37,22 +58,8 @@ char		*cmd_extract_str(char **strp)
 	{
 		if (i == MAX_SIZE)
 			exit_shell("Argument is too big !", 1);
-		if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ]
-		&& (!triggers[TDQ] || *(*strp + 1) == '$'))
-		{
-			triggers[TBS] = 1;
-			++*strp;
-		}
-		if (**strp == '\'' && !triggers[TDQ] && !triggers[TBS])
-			triggers[TSQ] = !triggers[TSQ];
-		else if (**strp == '\"' && !triggers[TSQ] && !triggers[TBS])
-			triggers[TDQ] = !triggers[TDQ];
-		else if (should_stop(**strp, triggers))
+		if (handle_char(strp, triggers, buffer, i++))
 			break ;
-		else
-			buffer[i++] = **strp;
-		++*strp;
-		triggers[TBS] = 0;
 	}
 	return (ft_strdup(buffer));
 }

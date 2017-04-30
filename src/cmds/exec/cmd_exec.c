@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 22:39:42 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 22:45:15 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,7 @@ void			cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env)
 	else
 	{
 		restore_fds();
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGHUP, SIG_DFL);
-		signal(SIGTSTP, SIG_DFL);
-		signal(SIGTTIN, SIG_DFL);
-		signal(SIGTTOU, SIG_DFL);
-		signal(SIGCHLD, SIG_DFL);
+		reset_signals();
 		cmd_set_fds(cmd->redirs, 0);
 		execve(cmd->args[0], cmd->args, env);
 		exit(1);
