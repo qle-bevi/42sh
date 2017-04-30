@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 11:09:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 19:21:38 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/04/30 19:27:12 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			bi_fg(t_shell *sh, char **args)
 
 	if (!args[0])
 	{
-	   if (!(id = get_last_id(sh->jobs)))
+		if (!(id = get_last_id(sh->jobs)))
 		{
 			print_error("fg: no such job", NULL);
 			return (1);
