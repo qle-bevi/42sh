@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 08:21:08 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/28 20:33:50 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 17:58:18 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static t_job	*get_jobs(t_job *jobs, char flags[6])
 	{
 		if (!jobs->next)
 			break ;
-		if (!ft_strchr(flags, 'n') || (!jobs->notified && (jobs->done || jobs->stopped)))
+		if (!ft_strchr(flags, 'n') ||
+				(!jobs->notified && (jobs->done || jobs->stopped)))
 		{
 			if ((ft_strchr(flags, 's') && jobs->stopped)
 			|| (ft_strchr(flags, 'r') && !jobs->stopped && !jobs->done)
@@ -94,7 +95,7 @@ int			bi_jobs(t_shell *sh, char **args)
 		return (0);
 	while (current_job)
 	{
-		if(!(id = ft_itoa(current_job->id)))
+		if (!(id = ft_itoa(current_job->id)))
 			exit_shell(ERR_MALLOC, 1);
 		print_hooks(id);
 		print_hooks(current_job->current_cmd->args[0]);

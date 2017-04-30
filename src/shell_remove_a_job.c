@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 09:37:32 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 17:18:19 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:38:47 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static void	push_job(t_job **jobs, t_job *job)
 	if (!(current = *jobs))
 	{
 		*jobs = job;
-		return;
+		return ;
 	}
 	while (current->next)
 		current = current->next;
 	current->next = job;
 }
 
-void	shell_remove_a_job(t_shell *sh, t_job *job)
+void		shell_remove_a_job(t_shell *sh, t_job *job)
 {
 	t_job *current;
 	t_job *next;

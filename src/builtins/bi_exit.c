@@ -6,13 +6,13 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:38:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/17 11:44:10 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 17:50:58 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int has_stopped_jobs(t_job *jobs)
+static int	has_stopped_jobs(t_job *jobs)
 {
 	while (jobs)
 	{
@@ -23,14 +23,15 @@ static int has_stopped_jobs(t_job *jobs)
 	return (0);
 }
 
-int	bi_exit(t_shell *sh, char **args)
+int			bi_exit(t_shell *sh, char **args)
 {
 	if (args[0] && !str_is_digit(args[0]))
 	{
 		ft_putendl_fd("exit code should be a digit!", 2);
 		return (1);
 	}
-	if (has_stopped_jobs(sh->jobs)) {
+	if (has_stopped_jobs(sh->jobs))
+	{
 		ft_putendl_fd("They are stopped jobs.", 2);
 		return (1);
 	}

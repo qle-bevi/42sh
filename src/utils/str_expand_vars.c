@@ -6,15 +6,14 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/04/28 17:12:31 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:44:11 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-# define TSQ	0
-# define TQ		1
-# define TBS	2
-
+#define TSQ 0
+#define TQ 1
+#define TBS 2
 
 static int		extract_key(char *str, char **dest)
 {
@@ -45,10 +44,10 @@ static void		get_append_value(char *key, char *buffer, int *i)
 	free(value);
 }
 
-static void 	extract_var(char **strp, char *buffer, int *i)
+static void		extract_var(char **strp, char *buffer, int *i)
 {
-	int len;
-	char *key;
+	int		len;
+	char	*key;
 
 	key = NULL;
 	if (!(len = extract_key(*strp, &key)))
@@ -77,7 +76,7 @@ char			*str_expand_vars(char *str)
 			buffer[i++] = *str;
 		}
 		else if (i && (!triggers[TSQ] || triggers[TBS])
-		&& !triggers[TBS] && *str == '$' )
+				&& !triggers[TBS] && *str == '$')
 			extract_var(&str, buffer, &i);
 		else
 			buffer[i++] = *str;

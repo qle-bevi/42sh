@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:57:03 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/11/14 17:57:15 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:41:49 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char		*clean_path(char *path)
 	len = 0;
 	array = ft_strsplit(path, '/');
 	if (array[0] && array[1] && !ft_strcmp(array[1], "..") && !array[2])
-		return (free_array(&array, 2, ft_strdup("/")));	
+		return (free_array(&array, 2, ft_strdup("/")));
 	if (!path || !array[0])
 		return (free_array(&array, len, ft_strdup("/")));
 	while (array[len])

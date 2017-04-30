@@ -6,14 +6,14 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 09:14:10 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/13 09:14:10 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:35:24 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "shell.h"
 
-static void		job_exec_cmd(t_job *job, t_cmd *cmd)
+static void	job_exec_cmd(t_job *job, t_cmd *cmd)
 {
 	job->started = 1;
 	job->notified = 0;
@@ -28,12 +28,12 @@ void		job_next_cmd(t_job *job)
 	t_cmd *candidate;
 
 	if (!job->started)
-		return (job_exec_cmd(job, job->cmds)); 
+		return (job_exec_cmd(job, job->cmds));
 	candidate = job->current_cmd;
 	while (candidate->then)
 	{
 		if ((candidate->ctype == OR && job->current_cmd->ret)
-		|| (candidate->ctype == AND && !job->current_cmd->ret))
+				|| (candidate->ctype == AND && !job->current_cmd->ret))
 		{
 			job->stopped = 0;
 			job->notified = 0;

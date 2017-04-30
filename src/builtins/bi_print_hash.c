@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:36:45 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/11/14 19:36:46 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 17:57:22 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	bi_print_hash(t_shell *sh, char **args)
 		ft_putendl("print need an option [bins, env]");
 		return (1);
 	}
-		
 	if (!ft_strcmp(args[0], "env"))
 		h_print(sh->env, VAL_OK | NUM_OK | LEN_OK);
 	else if (!ft_strcmp(args[0], "bins"))

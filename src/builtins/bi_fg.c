@@ -6,18 +6,19 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 11:09:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 19:03:06 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 17:53:40 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include "job.h"
 
-static int get_last_id(t_job *jobs)
+static int	get_last_id(t_job *jobs)
 {
 	while (jobs)
 	{
-		if (jobs->next && !jobs->next->next) return (jobs->id);
+		if (jobs->next && !jobs->next->next)
+			return (jobs->id);
 		jobs = jobs->next;
 	}
 	return (0);
@@ -28,15 +29,13 @@ int			bi_fg(t_shell *sh, char **args)
 	int		id;
 	t_job	*job;
 
-	if (!args[0])
+	if ((!args[0] && !(id = get_last_id(sh->jobs))))
 	{
-		if (!(id = get_last_id(sh->jobs)))
-		{
-			print_error("fg: no such job", NULL);
-			return (1);
-		}
+		print_error("fg: no such job", NULL);
+		return (1);
 	}
-	else id = ft_atoi(args[0]);
+	else
+		id = ft_atoi(args[0]);
 	job = sh->jobs;
 	while (job)
 	{

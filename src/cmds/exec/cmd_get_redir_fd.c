@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 02:09:51 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 17:25:35 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:25:08 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int		heredoc(char *path)
 	{
 		if (ret == -1)
 			exit_shell(ERR_READ, 1);
-		if (!line) break ;
+		if (!line)
+			break ;
 		if (!ft_strcmp(path, line))
 		{
 			ft_memdel((void **)&line);
