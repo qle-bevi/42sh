@@ -6,13 +6,13 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/04/30 17:36:06 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/04/30 19:01:18 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 # define TSQ	0
-# define TQ		1
+# define TDQ		1
 # define TBS	2
 
 
@@ -61,6 +61,11 @@ static void 	extract_var(char **strp, char *buffer, int *i)
 	free(key);
 }
 
+static int		is_escaped(char c)
+{
+	return (c == 'n' || c == 'r' || c == 't');
+}
+
 char			*str_expand_vars(char *str)
 {
 	static char	buffer[10000] = { 0 };
@@ -68,17 +73,21 @@ char			*str_expand_vars(char *str)
 	int			i;
 
 	ft_bzero(buffer, 10000);
+	ft_bzero(triggers, sizeof(char) * 3);
 	i = 0;
 	while (*str)
 	{
-		if (*str == '\\' && !triggers[TBS] && *(str + 1) == '$')
+		if (*str == '\\' && !triggers[TBS] && !triggers[TSQ] && !is_escaped(*(str + 1)))
 		{
 			triggers[TBS] = 1;
 			++str;
 		}
-		if (*str == '\'' && !triggers[TBS])
+		if ((*str == '\'' || *str == '\"') && !triggers[TBS])
 		{
-			triggers[TSQ] = !triggers[TSQ];
+			if (*str == '\'')
+				triggers[TSQ] = !triggers[TSQ];
+			else
+				triggers[TDQ] = !triggers[TDQ];
 			buffer[i++] = *str;
 		}
 		else if (i && (!triggers[TSQ] || triggers[TBS])
