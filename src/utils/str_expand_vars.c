@@ -6,7 +6,7 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/05/01 16:46:01 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 17:25:39 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		extract_key(char *str, char **dest)
 	if (*str != '$')
 		return (0);
 	++str;
-	if (*str == '?')
+	if (*str == '?' || *str == '_')
 	{
 		i = 1;
 	}
@@ -67,7 +67,7 @@ static void		extract_var(char **strp, char *buffer, int *i)
 		return ;
 	}
 	get_append_value(key, buffer, i);
-	*strp += len;
+	*strp += len + 1;
 	free(key);
 }
 
