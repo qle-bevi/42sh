@@ -23,6 +23,7 @@ SRC = 	main.c \
 		shell_update_bins.c \
 		set_term_mode.c \
 		set_current_pgid.c \
+		sigsig.c \
 		shell_prompt.c \
 		shell_signals.c \
 		do_exec.c \
@@ -43,6 +44,7 @@ SRC = 	main.c \
 		builtins/bi_cd_opt.c \
 		builtins/bi_source.c \
 		builtins/bi_jobs.c \
+		builtins/bi_jobs_ret.c \
 		builtins/bi_fg.c \
 		builtins/bi_bg.c \
 		builtins/bi_unset.c \

@@ -6,20 +6,13 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:41:10 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:38:09 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/05/01 16:58:09 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 typedef int			(*t_gl_func)(t_shell *sh, char *prompt, char **line);
-
-static void			sigsig(int sig)
-{
-	ft_putendl("");
-	ft_putstr(get_shell()->prompt);
-	(void)sig;
-}
 
 static int			with_termcaps(t_shell *sh, char *prompt, char **line)
 {

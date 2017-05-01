@@ -6,11 +6,18 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 08:21:08 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 19:06:47 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/05/01 17:08:22 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static char		*get_flags2(char *c)
+{
+	print_error("jobs: invalid option: ", c);
+	ft_putendl("jobs [-lnprs] [jobspec]");
+	return (NULL);
+}
 
 static char		*get_flags(char ***args)
 {
@@ -30,11 +37,7 @@ static char		*get_flags(char ***args)
 		{
 			c[1] = **current_arg;
 			if (!ft_strchr(valids, c[1]))
-			{
-				print_error("jobs: invalid option: ", c);
-				ft_putendl("jobs [-lnprs] [jobspec]");
-				return (NULL);
-			}
+				return (get_flags2(c));
 			if (!ft_strchr(flags, c[1]) && ft_strchr(valids, c[1]))
 				flags[i++] = c[1];
 			++*current_arg;
@@ -97,13 +100,7 @@ int				bi_jobs(t_shell *sh, char **args)
 	{
 		if (!(id = ft_itoa(current_job->id)))
 			exit_shell(ERR_MALLOC, 1);
-		print_hooks(id);
-		print_hooks(current_job->current_cmd->args[0]);
-		if (current_job->done)
-			print_hooks("terminated");
-		else
-			print_hooks((current_job->stopped) ? "stopped" : "running...");
-		ft_putchar('\n');
+		bi_jobs_ret(id, current_job);
 		to_free = current_job;
 		current_job = current_job->next;
 		free(to_free);
@@ -111,3 +108,4 @@ int				bi_jobs(t_shell *sh, char **args)
 	}
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 21:31:00 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 17:08:11 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_hash					*get_bins();
 int						do_exec(char **args, char **env);
 int						get_line(char *prompt, char **line);
 char					*get_value(char *key);
+void					sigsig(int sig);
 void					exit_shell(char *msg, int code);
 void					set_term_mode(t_term_mode mode);
 void					restore_fds();
@@ -164,6 +165,7 @@ int						bi_cd_change_dir(char *path, int print_path,
 int						*bi_cd_get_flags(char **args);
 int						bi_source(t_shell *sh, char **args);
 int						bi_jobs(t_shell *sh, char **args);
+void					bi_jobs_ret(char *id, t_job *cur);
 int						bi_fg(t_shell *sh, char **args);
 int						bi_bg(t_shell *sh, char **args);
 int						bi_export(t_shell *sh, char **args);
