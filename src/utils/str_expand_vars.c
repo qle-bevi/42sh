@@ -6,7 +6,7 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/04/30 23:16:40 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 16:46:01 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		get_append_value(char *key, char *buffer, int *i)
 			exit_shell(ERR_MALLOC, 1);
 	}
 	else if (!(value = get_value(key)))
-			return ;
+		return ;
 	ft_strcat(buffer + *i, value);
 	*i += (int)ft_strlen(value);
 	free(value);
@@ -71,6 +71,35 @@ static void		extract_var(char **strp, char *buffer, int *i)
 	free(key);
 }
 
+static void		handle_char(char **strp, char *triggers, char *buf, int *i)
+{
+	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ])
+	{
+		triggers[TBS] = 1;
+		++*strp;
+	}
+	if ((**strp == '\'' || **strp == '\"') && !triggers[TBS])
+	{
+		if (**strp == '\'')
+			triggers[TSQ] = !triggers[TSQ];
+		else
+			triggers[TDQ] = !triggers[TDQ];
+		buf[*i] = **strp;
+		++*strp;
+		++*i;
+	}
+	else if (i && (!triggers[TSQ] || triggers[TBS])
+			&& !triggers[TBS] && **strp == '$')
+		extract_var(strp, buf, i);
+	else
+	{
+		buf[*i] = **strp;
+		++*strp;
+		++*i;
+	}
+	triggers[TBS] = 0;
+}
+
 char			*str_expand_vars(char *str)
 {
 	static char	buffer[10000] = { 0 };
@@ -81,27 +110,6 @@ char			*str_expand_vars(char *str)
 	ft_bzero(triggers, sizeof(char) * 3);
 	i = 0;
 	while (*str)
-	{
-		if (*str == '\\' && !triggers[TBS] && !triggers[TSQ])
-		{
-			triggers[TBS] = 1;
-			++str;
-		}
-		if ((*str == '\'' || *str == '\"') && !triggers[TBS])
-		{
-			if (*str == '\'')
-				triggers[TSQ] = !triggers[TSQ];
-			else
-				triggers[TDQ] = !triggers[TDQ];
-			buffer[i++] = *str;
-		}
-		else if (i && (!triggers[TSQ] || triggers[TBS])
-				&& !triggers[TBS] && *str == '$')
-			extract_var(&str, buffer, &i);
-		else
-			buffer[i++] = *str;
-		++str;
-		triggers[TBS] = 0;
-	}
+		handle_char(&str, (char *)triggers, buffer, &i);
 	return (ft_strdup(buffer));
 }

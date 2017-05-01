@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 23:09:19 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 16:17:33 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 #define TDQ 1
 #define TBS 2
 
-static int	should_stop(char c, char triggers[3])
+static int	should_stop(char c, char *triggers)
 {
 	return ((cmd_is_skip_char(c) || c == ';' || c == '|') &&
 			!triggers[TBS] && !triggers[TDQ] && !triggers[TSQ]);
 }
 
-static int	handle_char(char **strp, char triggers[3], char *buffer, int i)
+static int	handle_char(char **strp, char *triggers, char *buffer, int *i)
 {
 	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ]
 	&& (!triggers[TDQ] || *(*strp + 1) == '$'))
@@ -39,7 +39,10 @@ static int	handle_char(char **strp, char triggers[3], char *buffer, int i)
 	else if (should_stop(**strp, triggers))
 		return (1);
 	else
-		buffer[i] = **strp;
+	{
+		buffer[*i] = **strp;
+		++*i;
+	}
 	++*strp;
 	triggers[TBS] = 0;
 	return (0);
@@ -58,7 +61,7 @@ char		*cmd_extract_str(char **strp)
 	{
 		if (i == MAX_SIZE)
 			exit_shell("Argument is too big !", 1);
-		if (handle_char(strp, triggers, buffer, i++))
+		if (handle_char(strp, (char *)triggers, buffer, &i))
 			break ;
 	}
 	return (ft_strdup(buffer));
