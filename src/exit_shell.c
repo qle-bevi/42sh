@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:40:00 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 23:11:26 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 16:50:22 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	stop_jobs(t_shell *sh)
 	}
 }
 
-static void free_store(char *store[STORE_SIZE])
+static void	free_store(char *store[STORE_SIZE])
 {
 	free(store[HOMEDIR]);
 	free(store[PWD]);
