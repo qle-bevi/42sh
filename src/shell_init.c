@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:43:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 20:07:56 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 18:51:58 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	shell_lvl(t_hash *env, char *str_lvl)
 	char *lvl;
 
 	if (!str_lvl)
-		return (void)h_set_or_create_elem(env, "SHLVL", 0);
+		return (void)h_set_or_create_elem(env, "SHLVL", "1");
 	if (!(lvl = ft_itoa(ft_atoi(str_lvl) + 1)))
 		exit_shell(ERR_MALLOC, 1);
 	h_set_or_create_elem(env, "SHLVL", lvl);
