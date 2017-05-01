@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_update.c                                       :+:      :+:    :+:   */
+/*   cmd_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/25 05:15:45 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/01 17:07:44 by qle-bevi         ###   ########.fr       */
+/*   Created: 2017/05/01 16:55:07 by qle-bevi          #+#    #+#             */
+/*   Updated: 2017/05/01 17:00:33 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cmd.h"
 #include "shell.h"
+#include "cmd.h"
 
-static void	cmd_handle_signal(t_cmd *cmd, int sig)
+int	cmd_check(t_cmd *cmd)
 {
-	if (sig == SIGINT)
-		return (cmd_return(cmd, 130));
-	if (sig == SIGTERM)
-		return (cmd_return(cmd, 1));
-}
-
-void		cmd_update(t_cmd *cmd, int status)
-{
-	if (WIFEXITED(status))
-		return (cmd_return(cmd, WEXITSTATUS(status)));
-	if (WIFSIGNALED(status))
-		return (cmd_handle_signal(cmd, WTERMSIG(status)));
+	if (check_access(cmd->args[0], X_OK) == -1)
+	{
+		cmd->done = 1;
+		cmd->ret = 126;
+		get_shell()->cmd_ret = cmd->ret;
+		return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 22:45:15 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/01 17:05:25 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static int		cmd_check_get_path(t_cmd *cmd)
 		if (cmd->args[0][0] != '.' && cmd->args[0][0] != '/')
 		{
 			print_error("Command not found: ", cmd->args[0]);
-			cmd->done = 1;
-			cmd->ret = 127;
-			get_shell()->cmd_ret = cmd->ret;
+			cmd_return(cmd, 127);
 			return (0);
 		}
 	}
@@ -60,14 +58,7 @@ static int		cmd_check_get_path(t_cmd *cmd)
 		free(cmd->args[0]);
 		cmd->args[0] = path;
 	}
-	if (check_access(cmd->args[0], X_OK) == -1)
-	{
-		cmd->done = 1;
-		cmd->ret = 126;
-		get_shell()->cmd_ret = cmd->ret;
-		return (0);
-	}
-	return (1);
+	return (cmd_check(cmd));
 }
 
 void			cmd_exec_single(t_cmd *cmd, pid_t pgid, char **env)

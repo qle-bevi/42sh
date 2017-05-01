@@ -99,6 +99,8 @@ SRC = 	main.c \
 		cmds/exec/cmd_link_pipe.c \
 		cmds/exec/cmd_update.c \
 		cmds/exec/cmd_terminate.c \
+		cmds/exec/cmd_check.c \
+		cmds/exec/cmd_return.c \
 		jobs/job_terminate.c \
 		jobs/job_next_cmd.c \
 		jobs/job_push_background.c \
