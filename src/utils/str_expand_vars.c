@@ -6,7 +6,7 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/05/01 18:36:49 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/02 17:15:15 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void		extract_var(char **strp, char *buffer, int *i)
 
 static void		handle_char(char **strp, char *triggers, char *buf, int *i)
 {
-	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ])
+	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ] && triggers[TDQ])
 	{
 		triggers[TBS] = 1;
 		++*strp;

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/01 17:05:25 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/02 16:44:25 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ static int		cmd_exec_builtin(t_cmd *cmd)
 	{
 		cmd_set_fds(cmd->redirs, 0);
 		cmd->ret = get_builtins()[bi_index].run(get_shell(), cmd->args + 1);
-		get_shell()->cmd_ret = cmd->ret;
-		if (!cmd->children)
-			cmd->done = 1;
+		cmd->done = (cmd->children) ? 0 : 1;
 		close(0);
 		close(1);
 		close(2);

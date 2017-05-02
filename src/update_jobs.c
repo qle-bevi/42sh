@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 09:50:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/01 18:49:20 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/02 16:53:28 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static void	handle_status(t_job *job, t_cmd *cmd, int status)
 	if (WIFSTOPPED(status))
 		job->stopped = 1;
 	cmd_update(cmd, status);
-	if (cmd->done)
-		handle_done(get_shell(), job, cmd);
 }
 
 void		update_jobs(t_job *current_job, pid_t pid, int status)
@@ -56,6 +54,8 @@ void		update_jobs(t_job *current_job, pid_t pid, int status)
 		{
 			if (cmd->pid == pid && !cmd->done)
 				handle_status(current_job, cmd, status);
+			if (cmd->done)
+				handle_done(get_shell(), current_job, cmd);
 			cmd = cmd->children;
 		}
 		current_job = current_job->next;
