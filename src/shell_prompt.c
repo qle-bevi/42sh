@@ -42,10 +42,10 @@ char	*shell_prompt(t_shell *sh)
 	{
 		chdir(sh->store[HOMEDIR]);
 		buf = ft_strredup(buf, sh->store[HOMEDIR]);
-		sh->store[OLDPWD] = ft_strredup(sh->store[OLDPWD], "~");
-		sh->store[PWD] = ft_strredup(sh->store[PWD], "~");
-		h_set_or_create_elem(sh->env, "PWD", "~");
-		h_set_or_create_elem(sh->env, "OLDPWD", "~");
+		sh->store[OLDPWD] = ft_strredup(sh->store[OLDPWD], sh->store[HOMEDIR]);
+		sh->store[PWD] = ft_strredup(sh->store[PWD], sh->store[HOMEDIR]);
+		h_set_or_create_elem(sh->env, "PWD", sh->store[HOMEDIR]);
+		h_set_or_create_elem(sh->env, "OLDPWD", sh->store[HOMEDIR]);
 		sh->env_update = 1;
 	}
 	buf = ft_str_replace(buf, sh->store[HOMEDIR], "~", 1);
