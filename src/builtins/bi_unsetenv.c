@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:35:48 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/27 20:14:08 by aschafer         ###   ########.fr       */
+/*   Updated: 2017/05/03 22:16:42 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	u_msg(char *key, int n)
 		ft_putendl_fd(" key has been deleted", 1);
 	}
 	else if (n == 1)
-		print_error(" key not found :", key);
+		print_error(" key not found : ", key);
 }
 
 int			bi_unsetenv(t_shell *sh, char **args)
