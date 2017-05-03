@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 17:50:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:00:09 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/05/03 18:47:48 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	free_redirs(t_redir *redir)
 
 t_cmd		*cmd_free(t_cmd **cmd)
 {
-	ft_rfreetab((void ***)&(*cmd)->args);
+	if ((*cmd)->args)
+		ft_rfreetab((void ***)&(*cmd)->args);
 	free_redirs((*cmd)->redirs);
 	if ((*cmd)->children)
 		cmd_free(&(*cmd)->children);

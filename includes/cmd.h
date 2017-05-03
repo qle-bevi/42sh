@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:01:28 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/01 17:09:47 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:30:30 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ struct	s_redir
 struct	s_cmd
 {
 	char	**args;
+	char	**env;
 	pid_t	pid;
 	char	*pidstr;
 	int		done;

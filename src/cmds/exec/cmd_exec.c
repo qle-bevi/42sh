@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 03:32:14 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/02 16:44:25 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:44:03 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void			cmd_exec(t_cmd *cmd, pid_t pgid)
 	static t_shell	*sh = NULL;
 
 	sh = get_shell();
-	env = get_env();
+	env = (cmd->env) ? cmd->env : get_env();
 	if (cmd->children)
 		cmd_exec_group(cmd, env);
 	else

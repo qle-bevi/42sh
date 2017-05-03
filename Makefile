@@ -17,6 +17,7 @@ SRC = 	main.c \
 		shell_source_fd.c \
 		shell_source_line.c \
 		shell_add_a_job.c \
+		shell_create_and_run_job.c \
 		shell_remove_a_job.c \
 		shell_update_status.c \
 		shell_notificate.c \
