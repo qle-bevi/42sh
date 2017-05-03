@@ -6,7 +6,7 @@
 #    By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/29 15:12:07 by bdesbos           #+#    #+#              #
-#    Updated: 2017/04/27 22:01:36 by aschafer         ###   ########.fr        #
+#    Updated: 2017/05/03 22:34:26 by bdesbos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_PATH = .
 
 OBJ_PATH = obj
 
-HEAD = includes/libhash.h ../libft/includes/libft.h
+HEAD = includes/libhash.h
 
 SRC_NAME = h_add_elem.c h_create_hash.c h_get_elem_by_key.c \
 		   h_get_value_by_key.c h_hash_to_tab.c h_lst_new.c h_lst_push.c \
