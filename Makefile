@@ -1,4 +1,4 @@
-NAME = 21sh
+NAME = 42sh
 
 SRC = 	main.c \
 		get_shell.c \
@@ -152,11 +152,11 @@ all: title $(NAME)
 title:
 	@make -C libft all
 	@make -C libhash all
-	@echo "Checking 21sh..."
+	@echo "Checking 42sh..."
 
 $(NAME): $(DIRS) $(OBJS) $(CHECK_LIB)
 	@clang $(FLAGS) $(OBJS) $(INCLUDES) $(LIB_FLAGS) -o $(NAME) -Ofast
-	@echo "\n✅  21SH BUILT !"
+	@echo "\n✅  42SH BUILT !"
 
 $(DIRS):
 	@mkdir $@
@@ -167,7 +167,7 @@ $(OBJ_DIR)/%.o: %.c
 
 clean:
 	@rm -rf $(DIRS)
-	@echo "21sh cleaned"
+	@echo "42sh cleaned"
 
 fclean: clean
 	@make -C libft fclean
