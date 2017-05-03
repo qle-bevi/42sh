@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 09:50:23 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/02 16:53:28 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/03 16:14:21 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	handle_done(t_shell *sh, t_job *job, t_cmd *cmd)
 		job_terminate(job, 130);
 	else if (!cmd->children)
 	{
+		cmd_return(cmd, cmd->ret);
 		cmd_terminate(job->current_cmd, cmd->ret);
 		job_next_cmd(job);
 	}

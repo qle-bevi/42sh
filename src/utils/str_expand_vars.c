@@ -6,7 +6,7 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/05/02 17:15:15 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/02 17:38:47 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,8 @@ static void		handle_char(char **strp, char *triggers, char *buf, int *i)
 			triggers[TSQ] = !triggers[TSQ];
 		else
 			triggers[TDQ] = !triggers[TDQ];
-		buf[*i] = **strp;
+		buf[*i++] = **strp;
 		++*strp;
-		++*i;
 	}
 	else if (i && (!triggers[TSQ] || triggers[TBS])
 			&& !triggers[TBS] && **strp == '$')
