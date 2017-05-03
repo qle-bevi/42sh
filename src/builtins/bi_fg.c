@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 11:09:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 23:11:55 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/03 19:01:30 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	fg_job(t_job *job, int id)
 {
 	char	*id_str;
 
-	while (job)
+	while (job && job->next)
 	{
 		if (job->id == id)
 		{
@@ -47,7 +47,6 @@ static int	fg_job(t_job *job, int id)
 int			bi_fg(t_shell *sh, char **args)
 {
 	int		id;
-	t_job	*job;
 
 	if (!args[0])
 	{
@@ -59,6 +58,5 @@ int			bi_fg(t_shell *sh, char **args)
 	}
 	else
 		id = ft_atoi(args[0]);
-	job = sh->jobs;
 	return (fg_job(sh->jobs, id));
 }
