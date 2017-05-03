@@ -36,6 +36,7 @@ SRC = 	main.c \
 		builtins/bi_alias.c \
 		builtins/bi_print_hash.c \
 		builtins/bi_setenv.c \
+		builtins/bi_set.c \
 		builtins/bi_unsetenv.c \
 		builtins/bi_env.c \
 		builtins/bi_export.c \
