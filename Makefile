@@ -125,6 +125,9 @@ SRC = 	main.c \
 		utils/reset_signals.c \
 		utils/str_is_alnum.c
 
+HEAD = includes/shell.h includes/cmd.h includes/get_command_line.h \
+	   includes/job.h includes/colors.h includes/get_next_line.h \
+	   includes/keys.h
 
 CHECK_LIB = libft/libft.a libhash/libhash.a
 
@@ -163,7 +166,7 @@ $(NAME): $(DIRS) $(OBJS) $(CHECK_LIB)
 $(DIRS):
 	@mkdir $@
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c $(HEAD)
 	@clang $(FLAGS) $(INCLUDES) -c $< -o $@ -g3
 	@echo "$(NAME) => \033[33;32m$@\033[33;0m"
 
