@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:36:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/03 21:22:31 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/04 16:57:53 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int			bi_set(t_shell *sh, char **args)
 		}
 		if (h_get_elem_by_key(sh->env, args[0]))
 			return (bi_setenv(sh, args));
-		else
-			h_set_or_create_elem(sh->vars, args[0], args[1]);
+		h_set_or_create_elem(sh->vars, args[0], args[1]);
 	}
 	else
 	{
