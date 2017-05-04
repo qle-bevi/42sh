@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:44:47 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/03 17:21:44 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/04 16:49:32 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			shell_source_line(t_shell *sh, char *str)
 			break ;
 		if (validate_fds(cmd))
 			shell_create_and_run_job(sh, cmd, *cmd_str == '&');
-		if (*cmd_str == '&')
+		if (*cmd_str == '&' || *cmd_str == ';')
 			++cmd_str;
 	}
 	free(str);
