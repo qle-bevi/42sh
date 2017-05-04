@@ -126,7 +126,7 @@ SRC = 	main.c \
 
 HEAD = includes/shell.h includes/cmd.h includes/get_command_line.h \
 	   includes/job.h includes/colors.h includes/get_next_line.h \
-	   includes/keys.h
+	   includes/keys.h libft/includes/libft.h libhash/includes/libhash.h
 
 CHECK_LIB = libft/libft.a libhash/libhash.a
 
