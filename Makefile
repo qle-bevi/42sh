@@ -118,10 +118,15 @@ SRC = 	main.c \
 		utils/read_key.c \
 		utils/clean_path.c \
 		utils/stringtab_to_string.c \
+		utils/handle_utils.c \
 		utils/str_is_digit.c \
 		utils/get_next_line.c \
 		utils/copy_fd.c \
-        utils/str_expand_vars.c \
+    utils/str_expand_vars.c \
+		utils/ft_strremplace.c \
+		utils/h_utils.c \
+		utils/extract_utils.c \
+		utils/char_special.c \
 		utils/reset_signals.c \
 		utils/str_is_alnum.c
 

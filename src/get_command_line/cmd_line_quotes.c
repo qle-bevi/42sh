@@ -71,7 +71,7 @@ static int		check_backslash(char *str)
 	tmp++;
 	while (*tmp)
 	{
-		if (*tmp == ' ')
+		if (*tmp == '\n')
 			tmp++;
 		else
 			return (0);

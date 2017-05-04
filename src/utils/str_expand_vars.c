@@ -6,109 +6,81 @@
 /*   By: jbouloux <jbouloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 22:04:28 by jbouloux          #+#    #+#             */
-/*   Updated: 2017/05/02 17:38:47 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/04 20:25:12 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-#define TSQ	0
-#define TDQ	1
-#define TBS	2
-
-static int		extract_key(char *str, char **dest)
+void	get_dols(char **str, char *trigger, char *buf, int *i)
 {
-	int	i;
-
-	i = 0;
-	if (*str != '$')
-		return (0);
-	++str;
-	if (*str == '?' || *str == '_')
-	{
-		i = 1;
-	}
-	else
-		while (str[i] && ft_isalnum(str[i]))
-			++i;
-	if (!i)
-		return (0);
-	if (!(*dest = ft_strnew(i)))
-		exit_shell(ERR_MALLOC, 1);
-	ft_strncat(*dest, str, i);
-	return (i);
+	if (!trigger[TBS])
+		extract_var(str, buf, i);
 }
 
-static void		get_append_value(char *key, char *buffer, int *i)
+char	*get_histo(char *tmp, size_t *i)
 {
-	char *value;
+	t_histo *h;
+	char	*tmp2;
+	char	*h_cmd;
+	int		n_cmd;
 
-	if (!ft_strcmp(key, "?"))
-	{
-		if (!(value = ft_itoa(get_shell()->cmd_ret)))
-			exit_shell(ERR_MALLOC, 1);
-	}
-	else if (!(value = get_value(key)))
-		return ;
-	ft_strcat(buffer + *i, value);
-	*i += (int)ft_strlen(value);
-	free(value);
-}
-
-static void		extract_var(char **strp, char *buffer, int *i)
-{
-	int		len;
-	char	*key;
-
-	key = NULL;
-	if (!(len = extract_key(*strp, &key)))
-	{
-		++(*strp);
-		return ;
-	}
-	get_append_value(key, buffer, i);
-	*strp += len + 1;
-	free(key);
-}
-
-static void		handle_char(char **strp, char *triggers, char *buf, int *i)
-{
-	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ] && triggers[TDQ])
-	{
-		triggers[TBS] = 1;
-		++*strp;
-	}
-	if ((**strp == '\'' || **strp == '\"') && !triggers[TBS])
-	{
-		if (**strp == '\'')
-			triggers[TSQ] = !triggers[TSQ];
-		else
-			triggers[TDQ] = !triggers[TDQ];
-		buf[*i++] = **strp;
-		++*strp;
-	}
-	else if (i && (!triggers[TSQ] || triggers[TBS])
-			&& !triggers[TBS] && **strp == '$')
-		extract_var(strp, buf, i);
+	tmp2 = NULL;
+	h = get_shell()->histo;
+	if (tmp[*i + 1] && tmp[*i + 1] == '!' && (n_cmd = 1))
+		h_cmd = get_cmd_histo(h, len_histo(h) - 1, len_histo(h));
 	else
 	{
-		buf[*i] = **strp;
-		++*strp;
-		++*i;
+		n_cmd = ft_atoi(&tmp[*i + 1]);
+		h_cmd = get_cmd_histo(h, n_cmd, len_histo(h));
 	}
-	triggers[TBS] = 0;
+	tmp2 = ft_strremplace(tmp, *i, char_len(n_cmd) + 1, h_cmd);
+	ft_memdel((void **)&tmp);
+	*i += ft_strlen(h_cmd) - char_len(n_cmd);
+	return (tmp2);
 }
 
-char			*str_expand_vars(char *str)
+void	str_history(char **tmp, char *trig)
+{
+	size_t	i;
+	size_t	len;
+
+	i = -1;
+	len = ft_strlen(*tmp);
+	while (++i < len)
+	{
+		if ((*tmp)[i] == '\'' && !trig[TBS])
+			trig[TSQ] = !trig[TSQ];
+		if ((*tmp)[i] == '\\' && !trig[TBS])
+			trig[TBS] = !trig[TBS];
+		if (!trig[TSQ] && !trig[TBS] && (*tmp)[i] == '!')
+			*tmp = get_histo(*tmp, &i);
+		if (!*tmp)
+			return ;
+		len = ft_strlen(*tmp);
+	}
+	ft_bzero(trig, 3);
+}
+
+char	*str_expand_vars(char *str)
 {
 	static char	buffer[10000] = { 0 };
-	static int	triggers[3] = { 0 };
+	static char	triggers[3] = { 0 };
 	int			i;
+	char		*tmp;
+	char		*tmp2;
 
 	ft_bzero(buffer, 10000);
-	ft_bzero(triggers, sizeof(char) * 3);
+	ft_bzero(triggers, 3);
 	i = 0;
-	while (*str)
-		handle_char(&str, (char *)triggers, buffer, &i);
+	tmp = ft_strdup(str);
+	str_history(&tmp, triggers);
+	if (!tmp)
+		print_error("event not found", NULL);
+	tmp2 = tmp;
+	while (tmp && *tmp)
+		handle_c(&tmp, (char *)triggers, buffer, &i);
+	if (tmp2)
+		ft_memdel((void **)&tmp2);
 	return (ft_strdup(buffer));
 }

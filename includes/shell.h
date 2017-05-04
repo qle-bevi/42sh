@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/03 21:20:59 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/04 20:22:04 by atheveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # define NB_BUILTINS 18
 # define DEFAULT_PATH "/bin:/usr/bin"
 # define HELP_FILES "./help/"
+# define TSQ	0
+# define TDQ	1
+# define TBS	2
 
 /*
 ** ERRORS MESSAGES
@@ -208,7 +211,26 @@ int						bi_history_p(t_bi_histo *current, t_shell *sh);
 /*
 **	UTILS
 */
-
+void					str_history(char **tmp, char *trig);
+char					*get_histo(char *tmp, size_t *i);
+void					get_dols(char **str, char *trigger, char *buf, int *i);
+void					add_char(char **str, char *triggers, char *buf, int *i);
+void					handle_bs(char *triggers);
+void					handle_sq(char **str, char *triggers, \
+			char *buf, int *i);
+void					handle_dq(char **str, char *trigger, char *buf, int *i);
+void					handle_c(char **str, char *triggers, char *buf, int *i);
+void					extract_var(char **strp, char *buffer, int *i);
+void					get_append_value(char *key, char *buffer, int *i);
+int						extract_key(char *str, char **dest);
+int						ft_abs(int n);
+int						char_len(int n);
+char					*get_cmd_histo(t_histo *last, int n, int len);
+char					*histo_nvalue(t_histo *last, int n);
+int						len_histo(t_histo *last);
+int						char_special(char c);
+char					*ft_strremplace(char *s1, size_t start, \
+			size_t len, char *s2);
 char					**str_doublesplit(char *str);
 char					*clean_path(char *path);
 int						str_is_digit(char *str);
