@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 09:14:10 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/03 17:31:34 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/04 16:50:59 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		job_next_cmd(t_job *job)
 		{
 			job->stopped = 0;
 			job->notified = 0;
+			ft_putchar('\n');
 			return (job_exec_cmd(job, candidate->then));
 		}
 		candidate = candidate->then;

@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 12:46:59 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/30 18:29:49 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/05/04 16:54:01 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ t_cmd			*cmd_build(char **strp, int with_then)
 			return (cmd_build_parse_error(&cmd, *strp));
 		if (!with_then && (cmd_is_operator(*strp) ||
 					**strp == ';' || **strp == '&'))
+		{
 			break ;
+		}
 		if ((!cmd_is_arg(*strp) && !cmd->args)
 		|| (cmd_is_operator(*strp) && !cmd_build_add_operator(cmd, strp))
-		|| (**strp == '|' && !cmd_build_add_children(cmd, strp))
+		|| (**strp == '|' && ft_strncmp(*strp, "||", 2)
+		&& !cmd_build_add_children(cmd, strp))
 		|| (cmd_is_redir(*strp) && !cmd_add_redir(cmd, strp))
 		|| (cmd_is_arg(*strp) && !cmd_add_arg(cmd, strp, 1)))
 			return (cmd_build_parse_error(&cmd, *strp));
 	}
-	if (with_then && (**strp == ';'))
-		++*strp;
 	return ((!cmd->args || !*cmd->args) ? cmd_build_parse_error(&cmd, *strp)
 	: cmd);
 }
