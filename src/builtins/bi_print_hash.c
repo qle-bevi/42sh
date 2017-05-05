@@ -16,16 +16,20 @@ int	bi_print_hash(t_shell *sh, char **args)
 {
 	if (!args[0])
 	{
-		ft_putendl("print need an option [bins, env]");
+		ft_putendl("print need an option [bins, env, alias]");
 		return (1);
 	}
 	if (!ft_strcmp(args[0], "env"))
 		h_print(sh->env, VAL_OK | NUM_OK | LEN_OK);
 	else if (!ft_strcmp(args[0], "bins"))
 		h_print(sh->bins, VAL_OK | NUM_OK | LEN_OK);
+	else if (!ft_strcmp(args[0], "alias"))
+		h_print(sh->aliases, VAL_OK | NUM_OK | LEN_OK);
+	else if (!ft_strcmp(args[0], "vars"))
+		h_print(sh->vars, VAL_OK | NUM_OK | LEN_OK);
 	else
 	{
-		ft_putendl("print Illegal option [bins, env]");
+		ft_putendl("print Illegal option [bins, env, alias]");
 		return (1);
 	}
 	return (0);

@@ -24,7 +24,7 @@ int	bi_unset(t_shell *sh, char **args)
 	}
 	while (args[i])
 	{
-		h_delete_elem(sh->env, args[i]);
+		h_delete_elem(sh->vars, args[i]);
 		if (!ft_strcmp(args[i], "PATH"))
 			shell_update_bins(sh);
 		i++;

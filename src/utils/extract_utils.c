@@ -20,7 +20,7 @@ int		extract_key(char *str, char **dest)
 	if (*str != '$')
 		return (0);
 	++str;
-	if (*str == '?' || *str == '_')
+	if (*str == '?' || *str == '_' || *str == '$')
 		i = 1;
 	else
 		while (str[i] && ft_isalnum(str[i]))
@@ -42,6 +42,11 @@ void	get_append_value(char *key, char *buffer, int *i)
 		if (!(value = ft_itoa(get_shell()->cmd_ret)))
 			exit_shell(ERR_MALLOC, 1);
 	}
+	else if (!ft_strcmp(key, "$"))
+	{
+		if (!(value = ft_itoa(get_shell()->pid)))
+			exit_shell(ERR_MALLOC, 1);
+	}
 	else if (!(value = get_value(key)))
 		return ;
 	ft_strcat(buffer + *i, value);
@@ -57,6 +62,8 @@ void	extract_var(char **strp, char *buffer, int *i)
 	key = NULL;
 	if (!(len = extract_key(*strp, &key)))
 	{
+		buffer[*i] = **strp;
+		++*i;
 		++(*strp);
 		return ;
 	}
