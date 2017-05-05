@@ -69,8 +69,8 @@ void	handle_dq(char **str, char *trigger, char *buf, int *i)
 				get_dols(str, trigger, buf, i);
 			if (trigger[TBS] || !char_special(**str))
 			{
-				if (trigger[TBS] && !(trigger[TBS] = 0))
-					++*str;
+				if (trigger[TBS])
+					trigger[TBS] = 0;
 				buf[*i] = **str;
 				++*str;
 				++*i;
@@ -92,5 +92,6 @@ void	handle_c(char **str, char *triggers, char *buf, int *i)
 		handle_dq(str, triggers, buf, i);
 	else if (**str == '$' && !triggers[TBS])
 		extract_var(str, buf, i);
-	add_char(str, triggers, buf, i);
+	if (**str)
+		add_char(str, triggers, buf, i);
 }
