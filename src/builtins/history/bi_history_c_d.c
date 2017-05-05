@@ -17,10 +17,16 @@ void	bi_histo_del_one_entry(t_histo *entry, t_shell *sh)
 	t_histo *tmp;
 
 	tmp = entry;
+	if (sh->histo == entry)
+	{
+		sh->histo = entry->prev ? entry->prev : NULL;
+		sh->histo->next = NULL;
+	}
 	if (entry->prev)
 		entry->prev->next = entry->next ? entry->next : NULL;
 	if (entry->next)
 		entry->next->prev = entry->prev ? entry->prev : NULL;
+	ft_memdel((void **)&tmp->value);
 	ft_memdel((void **)&tmp);
 	sh->nb_histo--;
 }
