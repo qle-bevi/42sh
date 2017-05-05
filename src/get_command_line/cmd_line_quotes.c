@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:28:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/01/30 20:11:17 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:15:07 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,24 @@ static char		*quotes_parse_array(int **array1)
 
 static int		check_backslash(char *str)
 {
-	char *tmp;
+	char	*tmp;
+	char	*tmp2;
+	int		i;
 
-	if (!(tmp = ft_strchr(str, '\\')))
-		return (0);
-	tmp++;
-	while (*tmp)
+	i = 0;
+	tmp = str;
+	while ((tmp = ft_strchr(tmp, '\\')))
 	{
-		if (*tmp == '\n')
-			tmp++;
+		++tmp;
+		tmp2 = tmp;
+		++i;
+	}
+	if (i == 0 ||  *(tmp2 - 2) == '\\')
+		return (0);
+	while (*tmp2)
+	{
+		if (*tmp2 == '\n')
+			tmp2++;
 		else
 			return (0);
 	}

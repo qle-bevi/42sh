@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 01:32:00 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/04/28 18:45:55 by aschafer         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:20:22 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void			cmd_line_end(t_cmd_line *cl)
 {
 	cmd_line_mv_end(cl);
-	ft_putchar('\n');
+	cmd_line_write(cl, '\n');
 }
 
 static void			clear_term(t_cmd_line *cl)

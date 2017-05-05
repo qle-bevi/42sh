@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/29 23:16:31 by qle-bevi          #+#    #+#             */
-/*   Updated: 2016/01/13 16:51:33 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:19:44 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char	*ft_strtrim(const char *s)
 	len = ft_strlen(s);
 	start = 0;
 	len--;
-	while (s[start] == '\n' || s[start] == '\t' || s[start] == ' ')
+	while (s[start] == '\t' || s[start] == ' ')
 	{
 		start++;
 		if (!s[start])
 			return (ft_strnew(0));
 	}
-	while (s[len] == '\n' || s[len] == '\t' || s[len] == ' ')
+	while (s[len] == '\t' || s[len] == ' ')
 		len--;
 	return (ft_strsub(s, start, len - start + 1));
 }

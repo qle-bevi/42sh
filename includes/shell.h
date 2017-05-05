@@ -6,14 +6,14 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/05 15:00:20 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 15:26:18 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 # define STORE_SIZE 4
-# define NB_BUILTINS 18
+# define NB_BUILTINS 17
 # define DEFAULT_PATH "/bin:/usr/bin"
 # define HELP_FILES "./help/"
 # define TSQ	0
