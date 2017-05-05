@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:44:47 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/04 16:49:32 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 15:08:42 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,26 @@ static int		validate_fds(t_cmd *cmd)
 	return ((cmd->then) ? validate_fds(cmd->then) : 1);
 }
 
-void			shell_source_line(t_shell *sh, char *str)
+void			shell_source_line(t_shell *sh, char **strp)
 {
-	char	*cmd_str;
+	char	*to_free;
+	char	*new;
 	t_cmd	*cmd;
 
-	if (!(str = str_expand_vars(str)))
+	to_free = *strp;
+	if (!(*strp = str_expand_vars(*strp)))
 		exit_shell(ERR_MALLOC, 1);
-	cmd_str = str;
-	if (*cmd_str == ';')
-		++cmd_str;
-	while (*cmd_str)
+	new = *strp;
+	free(to_free);
+	if (*new == ';')
+		++new;
+	while (*new)
 	{
-		if (!(cmd = cmd_build(&cmd_str, 1)))
+		if (!(cmd = cmd_build(&new, 1)))
 			break ;
 		if (validate_fds(cmd))
-			shell_create_and_run_job(sh, cmd, *cmd_str == '&');
-		if (*cmd_str == '&' || *cmd_str == ';')
-			++cmd_str;
+			shell_create_and_run_job(sh, cmd, *new == '&');
+		if (*new == '&' || *new == ';')
+			++new;
 	}
-	free(str);
 }

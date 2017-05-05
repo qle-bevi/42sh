@@ -6,7 +6,7 @@
 /*   By: atheveno <atheveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 20:22:52 by atheveno          #+#    #+#             */
-/*   Updated: 2017/05/04 20:23:06 by atheveno         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:38:53 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int		extract_key(char *str, char **dest)
 	if (*str != '$')
 		return (0);
 	++str;
-	if (*str == '?' || *str == '_' || *str == '$')
+	if (*str == '?'
+	|| (!ft_strcmp(str, "_ ") || (*str == '_' && !*(str + 1)))
+	|| *str == '$')
 		i = 1;
 	else
-		while (str[i] && ft_isalnum(str[i]))
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 			++i;
 	if (!i)
 		return (0);

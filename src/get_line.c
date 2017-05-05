@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:41:10 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/01 16:58:09 by atheveno         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:43:25 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void			close_scopes(char **line, t_gl_func func)
 			if (ret == -2)
 			{
 				ft_memdel((void **)line);
-				return ;
+				return (free(prompt));
 			}
 			if (ret == -1 || !(*line = ft_strrejoin(*line, *line, to_join)))
 			{

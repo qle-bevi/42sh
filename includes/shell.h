@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 20:35:22 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/04 20:22:04 by atheveno         ###   ########.fr       */
+/*   Updated: 2017/05/05 15:00:20 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void					shell_update_bins(t_shell *sh);
 void					env_check(t_hash *hash_env, char **store);
 void					shell_start(t_shell *sh, int ac, char **av);
 void					shell_source_fd(t_shell *sh, int fd);
-void					shell_source_line(t_shell *sh, char *line);
+void					shell_source_line(t_shell *sh, char **line);
 void					shell_add_a_job(t_shell *sh, t_job *job);
 void					shell_create_and_run_job(t_shell *sh,
 	t_cmd *cmd, int background);

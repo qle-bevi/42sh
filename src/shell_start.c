@@ -6,7 +6,7 @@
 /*   By: aschafer <aschafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/05/03 16:12:36 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 15:01:14 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static void	user_loop(t_shell *sh)
 		}
 		if (line && *line)
 		{
+			sh->line = ft_str_replace(sh->line, "~", sh->store[HOMEDIR], 1);
+			shell_source_line(sh, &sh->line);
+			line = sh->line;
 			if (!ft_strchr(line, '\n')
 			&& ((sh->histo && ft_strcmp(sh->histo->value, line)) || !sh->histo))
 				add_histo(&sh->histo, line, 1);
-			sh->line = ft_str_replace(sh->line, "~", sh->store[HOMEDIR], 1);
-			line = sh->line;
-			shell_source_line(sh, line);
 		}
 		ft_putchar('\n');
 		check_jobs(sh);

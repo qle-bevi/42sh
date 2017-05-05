@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/02 17:14:16 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:50:31 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char		*cmd_extract_str(char **strp)
 	ft_bzero(buffer, sizeof(char) * (MAX_SIZE + 1));
 	ft_bzero(triggers, sizeof(char) * 3);
 	i = 0;
-	while (**strp)
+	while (strp && *strp && **strp)
 	{
 		if (i == MAX_SIZE)
 			exit_shell("Argument is too big !", 1);
