@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:41:10 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/05 16:39:03 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:24:43 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ static void			close_scopes(char **line, t_gl_func func)
 	while ((prompt = quotes_cmd_opened(line)))
 	{
 		if (ft_strstr(prompt, "quote"))
-			*line = ft_strrejoin(*line, *line, "");
+			*line = ft_strrejoin(*line, *line, "\n");
+		ft_putchar('\n');
 		if ((ret = func(get_shell(), prompt, &to_join)))
 		{
+			ft_putstr(to_join);
 			if (ret == -2)
 			{
 				ft_memdel((void **)line);
