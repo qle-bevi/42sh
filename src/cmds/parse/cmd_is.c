@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:59:28 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/04 15:40:11 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:42:16 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	cmd_is_arg(char *str)
 
 int	cmd_is_skip_char(char c)
 {
-	return (ft_isescaped(c) || c == ' ' || c == '\n');
+	return (ft_isescaped(c) || c == ' ');
 }

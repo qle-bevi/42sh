@@ -6,7 +6,7 @@
 /*   By: aschafer <aschafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/05/05 16:36:19 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:28:14 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	user_loop(t_shell *sh)
 		if (line && *line)
 		{
 			sh->line = ft_str_replace(sh->line, "~", sh->store[HOMEDIR], 1);
+			ft_putchar('\n');
 			shell_source_line(sh, &sh->line);
 			line = sh->line;
 			if (!ft_strchr(line, '\n')

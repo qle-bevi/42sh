@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/05 16:37:34 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:43:56 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 static int	should_stop(char c, char *triggers)
 {
+	if (c == '\n')
+		return (0);
 	return ((cmd_is_skip_char(c) || c == ';' || c == '|') &&
 			!triggers[TBS] && !triggers[TDQ] && !triggers[TSQ]);
 }
