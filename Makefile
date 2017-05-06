@@ -1,4 +1,4 @@
-NAME = 42sh
+NAME = 42sh 
 
 SRC = 	main.c \
 		get_shell.c \
@@ -177,6 +177,8 @@ $(OBJ_DIR)/%.o: %.c $(HEAD)
 
 clean:
 	@rm -rf $(DIRS)
+	@make -C libft clean
+	@make -C libhash clean
 	@echo "42sh cleaned"
 
 fclean: clean
