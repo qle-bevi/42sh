@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:41:10 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/05 17:45:07 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/06 17:14:04 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,13 @@ static void			close_scopes(char **line, t_gl_func func)
 		ft_putchar('\n');
 		if ((ret = func(get_shell(), prompt, &to_join)))
 		{
-			if (ret == -2)
-			{
-				ft_memdel((void **)line);
-				return (free(prompt));
-			}
-			if (ret == -1 || !(*line = ft_strrejoin(*line, *line, to_join)))
+			if (ret == -1 || ret == -12
+				|| !(*line = ft_strrejoin(*line, *line, to_join)))
 			{
 				free(prompt);
 				ft_memdel((void **)line);
-				exit_shell("close scopes error!", 1);
+				if (ret == -1)
+					exit_shell("close scopes error!", 1);
 			}
 		}
 		free(prompt);

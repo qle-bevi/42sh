@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:28:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/06 15:49:53 by bdesbos          ###   ########.fr       */
+/*   Updated: 2017/05/06 17:11:26 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static char		*quotes_parse_array(int **array1)
 		prompt_ret = quotes_add_prompt_ret(prompt_ret, "dquote ");
 	else if (array1[3][1])
 		prompt_ret = quotes_add_prompt_ret(prompt_ret, "pipe ");
-	if (array1[2][1])
-		prompt_ret = quotes_add_prompt_ret(prompt_ret, "bquote ");
 	if (prompt_ret != NULL)
 	{
 		prompt_ret[ft_strlen(prompt_ret) - 1] = '>';
