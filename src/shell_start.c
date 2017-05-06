@@ -6,7 +6,7 @@
 /*   By: aschafer <aschafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:45:18 by aschafer          #+#    #+#             */
-/*   Updated: 2017/05/05 17:28:14 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/06 17:16:21 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static void	check_jobs(t_shell *sh)
 {
+	ft_putchar('\n');
 	shell_update_status(sh);
 	shell_notificate(sh);
 }
@@ -46,7 +47,6 @@ static void	user_loop(t_shell *sh)
 			&& ((sh->histo && ft_strcmp(sh->histo->value, line)) || !sh->histo))
 				add_histo(&sh->histo, line, 1);
 		}
-		ft_putchar('\n');
 		check_jobs(sh);
 		ft_memdel((void **)&sh->line);
 	}
