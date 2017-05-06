@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 21:02:34 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/05 17:43:56 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/06 17:06:55 by qle-bevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ static int	should_stop(char c, char *triggers)
 
 static int	handle_char(char **strp, char *triggers, char *buffer, int *i)
 {
-	if (**strp == '\\' && !triggers[TBS] && !triggers[TSQ]
-	&& (!triggers[TDQ] || *(*strp + 1) == '$'))
+	if (**strp == '\\' && !triggers[TSQ])
 	{
-		triggers[TBS] = 1;
+		triggers[TBS] = !triggers[TBS];
 		++*strp;
 	}
 	if (**strp == '\'' && !triggers[TDQ] && !triggers[TBS])
