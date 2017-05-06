@@ -12,7 +12,7 @@
 
 int	char_special(char c)
 {
-	if (c == '$' || c == '\\' || c == '`')
+	if (c == '$' || c == '\\')
 		return (c);
 	return (0);
 }
