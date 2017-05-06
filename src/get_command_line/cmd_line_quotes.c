@@ -6,7 +6,7 @@
 /*   By: qle-bevi <qle-bevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 19:28:17 by qle-bevi          #+#    #+#             */
-/*   Updated: 2017/05/05 16:15:07 by qle-bevi         ###   ########.fr       */
+/*   Updated: 2017/05/06 15:49:53 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int		check_backslash(char *str)
 		tmp2 = tmp;
 		++i;
 	}
-	if (i == 0 ||  *(tmp2 - 2) == '\\')
+	if (i == 0 || *(tmp2 - 2) == '\\')
 		return (0);
 	while (*tmp2)
 	{

@@ -6,7 +6,7 @@
 /*   By: atheveno <atheveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 20:23:44 by atheveno          #+#    #+#             */
-/*   Updated: 2017/05/04 20:23:57 by atheveno         ###   ########.fr       */
+/*   Updated: 2017/05/06 15:49:06 by bdesbos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	handle_dq(char **str, char *trigger, char *buf, int *i)
 				handle_bs(trigger);
 			if (!trigger[TBS] && trigger[TDQ] && **str == '\"' \
 					&& !(trigger[TDQ] = 0))
-					return (add_char(str, trigger, buf, i));
+				return (add_char(str, trigger, buf, i));
 			if (!trigger[TBS] && **str == '$')
 				get_dols(str, trigger, buf, i);
 			if (trigger[TBS] || !char_special(**str))
